@@ -23,24 +23,23 @@ export function CheckAndRadio() {
     </Form>
   );
 }
-export function TextControls({ boxName, value, onChange}) {
 
-  const handleInputChange = (event) => {
-    onChange(event.target.value);
-  };
-
+export const TextForm = ({ textValues, handleChange}) => {
   return (
-    //Email input
-   
-    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-      <Form.Label>{boxName}</Form.Label>
-      <Form.Control 
-        as="textarea" 
-        rows={5} 
-        value={value}
-        onChange={handleInputChange}
-      />
-    </Form.Group>
-
+    <>
+      {Object.keys(textValues).map((key) => (
+        <Form.Group key={key} controlId={`form${key}`}>
+          <Form.Label>{key}</Form.Label>
+          <Form.Control
+            as= "textarea"
+            rows= {3}
+            type="text"
+            name={key}
+            value={textValues[key]}
+            onChange={handleChange}
+          />
+        </Form.Group>
+      ))}
+    </>
   );
-}
+};

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Image, Form } from 'react-bootstrap';
+import { Container, Image} from 'react-bootstrap';
+import { TextForm } from './components/form';
+
 
 export default function App () {
 
@@ -28,26 +30,10 @@ export default function App () {
     <div class= "mt-3 mb-3">
       <Container> 
         <div class= "mb-5">
-        <Image src="main_awkward-questions-fm_spec_v2.png" fluid alt="Image" className="img-fluid mx-auto d-block" rounded/>
+          <Image src="main_awkward-questions-fm_spec_v2.png" fluid alt="Image" className="img-fluid mx-auto d-block" rounded/>
         </div>
-      
-        {Object.keys(textValues).map((key) => (
-          <Form.Group key={key} controlId={`form${key}`}>
-            <Form.Label>{key}</Form.Label>
-            <Form.Control
-              as= "textarea"
-              rows= {3}
-              type="text"
-              name={key}
-              value={textValues[key]}
-              onChange={handleChange}
-            />
-          </Form.Group>
-        ))}
+          <TextForm textValues={textValues} handleChange={handleChange} />
       </Container>
-      
-
-
     </div>
   );
 };
