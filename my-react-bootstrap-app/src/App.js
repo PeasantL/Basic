@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Image, Form } from 'react-bootstrap';
-import PngChunkExtractor from './components/png-extract';
-
-
 
 export default function App () {
 
@@ -29,9 +26,6 @@ export default function App () {
 
   return (
     <div class= "mt-3 mb-3">
-      <Container>
-        <PngChunkExtractor />
-      </Container>
       <Container> 
         <div class= "mb-5">
         <Image src="main_awkward-questions-fm_spec_v2.png" fluid alt="Image" className="img-fluid mx-auto d-block" rounded/>
