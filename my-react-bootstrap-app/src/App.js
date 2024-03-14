@@ -3,68 +3,40 @@ import { Container, Image, Row, Col, Button} from 'react-bootstrap';
 import { TextForm } from './components/form';
 
 
-export default function App () {
-
-  const [textValues, setTextValues] = useState({
-    name: "",
-    description: "",
-    personality: "",
-    first_mes: "",
-    mes_example: "",
-    scenario: "",
-    creator_notes: "",
-    system_prompt: "",
-    post_history_instructions: "",
-    creator: "" 
+export default function App() {
+  const [data, setData] = useState({
+    data: {
+    }
   });
 
-
-  //Todo: change every text box to be disabled until there is a file loaded!  
-  //Handle Change should be invoke if there is a loaded json, so that the 
-  //JSON data is changed with changes in text
+  // Handle form changes directly in the `data` state
   const handleChange = (event) => {
-    const { name, value } = event.target; // Destructure name and value from event.target
-    setTextValues({
-      ...textValues,
-      [name]: value // Use computed property name to update the right part of the state
-    });
-
-    //
+    const { name, value } = event.target;
     setData(prevData => ({
       ...prevData,
-      data: { ...prevData.data, [name]: value}
+      data: { ...prevData.data, [name]: value }
     }));
-
   };
 
-  const [jsonObject, setData] = useState(null);
-
-  //to be changed to recieve from API 
-  //Update textValues upon loading the fetched data
+  // Load JSON from API
   useEffect(() => {
-    fetch('/data.json')
+    fetch('http://localhost:3001/api/data')
       .then(response => response.json())
-      .then(jsonObject => {
-        setData(jsonObject); //Sets the fetched data to state
-
-        // Updates textValues based on the fetched data
-        setTextValues(prevValues => ({
-          ...prevValues,
-          ...Object.keys(prevValues).reduce((acc, key) => {
-            // Check if the fetched data has the key and if so, update the value 
-            if (jsonObject.data.hasOwnProperty(key)) {
-              acc[key] = jsonObject.data[key];
-            }
-            return acc;
-        }, {})
-      }));
-    })
-    .catch(error => console.error('There was a problem with the fetch operation', error));
+      .then(jsonObject => setData(jsonObject))
+      .catch(error => console.error('There was a problem with the fetch operation', error));
+      
   }, []);
+
+  console.log(data);
+
+  // Function to handle saving data
+  const handleSave = () => {
+    // Implement your save functionality here
+    console.log('Data to send:', data);
+  };
   
 
   /* App Structure */
-
   return (
     <div class= "mt-3 mb-3">
       <Container> 
@@ -73,7 +45,7 @@ export default function App () {
             <Col>
               <div className="d-grid gap-4">
               <Button variant="primary" size="lg">Load File</Button>
-              <Button variant="primary" size="lg">Save File</Button>
+              <Button variant="primary" size="lg" onClick={handleSave}>Save File</Button>
               <Button variant="primary" size="lg">Reset File</Button>
               </div>
             </Col>
@@ -83,11 +55,11 @@ export default function App () {
           </Row>
         </div>
         {/*Text boxes rendering*/}
-          <TextForm textValues={textValues} handleChange={handleChange} />
+          <TextForm textValues={data.data} handleChange={handleChange} />
       </Container>
 
       <Container>
-        <pre>{JSON.stringify(jsonObject, null, 2)}</pre>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
       </Container>
     </div>
   );
