@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Image, Row, Col, Button} from 'react-bootstrap';
 import { TextForm } from './components/form';
-import { UploadImage } from './hooks/upload'
+import { UploadImage } from './hooks/upload';
+import { dataFormat, imageStyle } from './components/data_format'
 
 
 export default function App() {
   const [data, setData] = useState({
-    data: {
-    }
+    data: dataFormat
   });
 
   // Handle form changes directly in the `data` state
@@ -55,7 +55,7 @@ export default function App() {
               </div>
             </Col>
             <Col>
-              <Image src="http://localhost:3001/api/images" fluid alt="Image" className="img-fluid mx-auto d-block" rounded/>
+              <Image src="http://localhost:3001/api/images" style={imageStyle} alt="Image" className="width=20% mx-auto d-block" rounded/>
             </Col>
           </Row>
         </div>
