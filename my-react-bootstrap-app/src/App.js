@@ -71,11 +71,13 @@ export default function App() {
               <UploadImage />
               <Button variant="primary" disabled="true">Upload Folder</Button>
               <Button variant="primary" onClick={deleteHotfile}>Purge Upload</Button>
+              {/*To change Save file to Save file(s)*/}
               <Button variant="primary" onClick={handleSave}>Save File</Button>
               <Button variant="primary" disabled="true">Reset File</Button>
               <Button variant="primary" disabled="true">Convert Asterisk</Button>
               <Button variant="primary" disabled="true">Convert Speech Marks</Button>
               <Button variant="primary" disabled="true">Convert Both</Button>
+              <Button variant="primary" disabled="true">Download Folder</Button>
               </div>
             </Col>
             <Col>

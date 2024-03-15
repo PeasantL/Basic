@@ -17,7 +17,7 @@ export const dataFormat = {
 }
 
 export const imageStyle = {
-    width: '50%', // Scale width to 100% of its container 
+    width: '55%', // Scale width to 100% of its container 
     height: 'auto', // Adjust height automatically
     // For more control, you can use 'object-fit' property to specify how the image should be resized
     objectFit: 'cover', // 'cover', 'contain', 'fill', 'scale-down', or 'none'
