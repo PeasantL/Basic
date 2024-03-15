@@ -35,6 +35,21 @@ export default function App() {
     console.log('Data to send:', data);
   };
   
+  const deleteHotfile = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/delete-hotfile', {
+        method: 'DELETE',
+      });
+      const responseData = await response.text();
+      console.log(responseData);
+      window.location.reload();
+      alert('File deleted successfully');
+    } catch (error) {
+      console.error('Failed to delete the file:', error);
+      alert('Failed to delete the file');
+    }
+  };
+
 
   /* App Structure */
   return (
@@ -46,7 +61,7 @@ export default function App() {
               <div className="d-grid gap-4">
               <UploadImage />
               <Button variant="primary">Upload Folder</Button>
-              <Button variant="primary">Purge Upload</Button>
+              <Button variant="primary" onClick={deleteHotfile}>Purge Upload</Button>
               <Button variant="primary" onClick={handleSave}>Save File</Button>
               <Button variant="primary">Reset File</Button>
               <Button variant="primary">Convert Asterisk</Button>

@@ -48,6 +48,18 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
+app.delete('/delete-hotfile', (req, res) => {
+  const filePath = path.join(__dirname, 'uploads', 'hotfile.png');
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error('Failed to delete file:', err);
+      return res.status(500).send('Failed to delete file');
+    }
+    console.log('File deleted successfully');
+    res.send('File deleted successfully');
+  });
+});
+
 // Endpoint to upload image
 app.post('/upload', upload.single('image'), async (req, res) => {
   try {
