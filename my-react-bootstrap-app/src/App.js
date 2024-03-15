@@ -31,7 +31,16 @@ export default function App() {
 
   // Function to handle saving data
   const handleSave = () => {
-    // Implement your save functionality here
+    fetch('http://localhost:3001/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ data }) // Your JSON data goes here
+    })
+      .then(response => response.json())
+      .then(serverData => console.log(serverData)) // Log any response from the server
+      .catch(error => console.error('Error:', error));
     console.log('Data to send:', data);
   };
   
@@ -60,13 +69,13 @@ export default function App() {
             <Col>
               <div className="d-grid gap-4">
               <UploadImage />
-              <Button variant="primary">Upload Folder</Button>
+              <Button variant="primary" disabled="true">Upload Folder</Button>
               <Button variant="primary" onClick={deleteHotfile}>Purge Upload</Button>
               <Button variant="primary" onClick={handleSave}>Save File</Button>
-              <Button variant="primary">Reset File</Button>
-              <Button variant="primary">Convert Asterisk</Button>
-              <Button variant="primary">Convert Speech Marks</Button>
-              <Button variant="primary">Convert Both</Button>
+              <Button variant="primary" disabled="true">Reset File</Button>
+              <Button variant="primary" disabled="true">Convert Asterisk</Button>
+              <Button variant="primary" disabled="true">Convert Speech Marks</Button>
+              <Button variant="primary" disabled="true">Convert Both</Button>
               </div>
             </Col>
             <Col>

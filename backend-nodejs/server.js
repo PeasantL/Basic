@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const PORT = 3001;
-const { pngDecode } = require("./extract_node");
+const { pngDecode, pngEncode } = require("./extract_node");
 
 // Setup storage engine
 const storage = multer.diskStorage({
@@ -33,6 +33,7 @@ app.get('/api/images', (req, res) => {
 app.use(cors());
 app.use(express.json());
 
+//Opens Json Data
 app.get('/api/data', async (req, res) => {
   try {
     // Assuming you have a mechanism to identify the correct image
@@ -71,5 +72,26 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     res.status(500).send('Error uploading file');
   }
 });
+
+
+// Endpoint to upload image
+app.post('/update', upload.single('jsonUpdate'), async (req, res) => {
+  try {
+    // Here, you can also implement image processing or decoding logic if needed
+    /*console.log('File uploaded successfully:', req.body.data);*/
+    const updatedPng = await pngEncode("uploads/hotfile.png", req.body.data);
+    fs.writeFile("uploads/test.png", updatedPng, (err) => {
+      if (err) {
+        console.error('Error writing file:', err);
+      } else {
+        console.log('File saved successfully.');
+      }
+    });
+  } catch (error) {
+    console.error('Upload Error:', error);
+    res.status(500).send('Error uploading file');
+  }
+});
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
