@@ -20,7 +20,7 @@ export default function App() {
   };
 
   // Load JSON from API
-  useEffect(() => {
+  useEffect(() => { 
     fetch('http://localhost:3001/api/data')
       .then(response => response.json())
       .then(jsonObject => setData(jsonObject))
