@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Image, Row, Col, Button} from 'react-bootstrap';
 import { TextForm } from './components/form';
+import { UploadImage } from './hooks/upload'
 
 
 export default function App() {
@@ -27,7 +28,6 @@ export default function App() {
       
   }, []);
 
-  console.log(data);
 
   // Function to handle saving data
   const handleSave = () => {
@@ -38,19 +38,24 @@ export default function App() {
 
   /* App Structure */
   return (
-    <div class= "mt-3 mb-3">
+    <div className= "mt-3 mb-3">
       <Container> 
-        <div class= "mb-5">
+        <div className= "mb-5">
           <Row>
             <Col>
               <div className="d-grid gap-4">
-              <Button variant="primary" size="lg">Load File</Button>
-              <Button variant="primary" size="lg" onClick={handleSave}>Save File</Button>
-              <Button variant="primary" size="lg">Reset File</Button>
+              <UploadImage />
+              <Button variant="primary">Upload Folder</Button>
+              <Button variant="primary">Purge Upload</Button>
+              <Button variant="primary" onClick={handleSave}>Save File</Button>
+              <Button variant="primary">Reset File</Button>
+              <Button variant="primary">Convert Asterisk</Button>
+              <Button variant="primary">Convert Speech Marks</Button>
+              <Button variant="primary">Convert Both</Button>
               </div>
             </Col>
             <Col>
-              <Image src="main_awkward-questions-fm_spec_v2.png" fluid alt="Image" className="img-fluid mx-auto d-block" rounded/>
+              <Image src="http://localhost:3001/api/images" fluid alt="Image" className="img-fluid mx-auto d-block" rounded/>
             </Col>
           </Row>
         </div>
@@ -58,10 +63,11 @@ export default function App() {
           <TextForm textValues={data.data} handleChange={handleChange} />
       </Container>
 
-      <Container>
+
+      <Container className= "mt-3">
+        <h5>Raw String Check</h5>
         <pre>{JSON.stringify(data, null, 2)}</pre>
       </Container>
     </div>
   );
 };
-
