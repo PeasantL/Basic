@@ -1,5 +1,22 @@
-import React, { useEffect, useRef } from 'react';
-import { Form } from 'react-bootstrap';
+import React, { useEffect, useRef } from "react";
+import { Form } from "react-bootstrap";
+import PropTypes from "prop-types";
+
+/*
+const dataCategories = {
+  defaultSetting: ["alternate_greetings", "first_mes", "mes_example"],
+  addSetting: [
+    "description",
+    "name",
+    "personality",
+    "post_history_instructions",
+    "scenario",
+    "system_prompts",
+  ],
+  miscSettings: ["avatar", "creator", "creator_notes", "extensions", "tags"],
+  cardSettings: ["spec", "spec_version"],
+};
+*/
 
 export const TextForm = ({ textValues, handleChange }) => {
   const textAreaRef = useRef({});
@@ -8,11 +25,14 @@ export const TextForm = ({ textValues, handleChange }) => {
     const refKey = index !== null ? `${key}-${index}` : key;
     const textarea = textAreaRef.current[refKey];
     if (textarea) {
-      textarea.style.height = 'inherit'; // Reset height to recalculate
+      textarea.style.height = "inherit"; // Reset height to recalculate
       const computed = window.getComputedStyle(textarea);
       // Calculate the height
-      const height = textarea.scrollHeight + parseInt(computed.borderTopWidth) + parseInt(computed.borderBottomWidth);
-      textarea.style.height = `${height+2}px`;
+      const height =
+        textarea.scrollHeight +
+        parseInt(computed.borderTopWidth) +
+        parseInt(computed.borderBottomWidth);
+      textarea.style.height = `${height + 2}px`;
     }
   };
 
@@ -36,7 +56,10 @@ export const TextForm = ({ textValues, handleChange }) => {
       {Object.keys(textValues).map((key) =>
         Array.isArray(textValues[key]) ? (
           textValues[key].map((value, index) => (
-            <Form.Group key={`${key}-${index}`} controlId={`form${key}-${index}`}>
+            <Form.Group
+              key={`${key}-${index}`}
+              controlId={`form${key}-${index}`}
+            >
               <Form.Label>{`${key} [${index}]`}</Form.Label>
               <Form.Control
                 as="textarea"
@@ -45,7 +68,7 @@ export const TextForm = ({ textValues, handleChange }) => {
                 name={key}
                 value={value}
                 onChange={(e) => handleDynamicChange(e, index)}
-                style={{ height: 'auto' }}
+                style={{ height: "auto" }}
               />
             </Form.Group>
           ))
@@ -59,11 +82,16 @@ export const TextForm = ({ textValues, handleChange }) => {
               name={key}
               value={textValues[key]}
               onChange={handleDynamicChange}
-              style={{ height: 'auto' }}
+              style={{ height: "auto" }}
             />
           </Form.Group>
-        )
+        ),
       )}
     </>
   );
+};
+
+TextForm.propTypes = {
+  textValues: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
