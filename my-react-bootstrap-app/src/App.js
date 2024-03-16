@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Container, Image, Row, Col, Button } from "react-bootstrap";
 import { TextForm } from "./components/TextBoxes";
 import { UploadImage } from "./components/UploadButton";
-import { dataFormat, imageStyle } from "./utils/dataFormat";
+import { imageStyle } from "./utils/dataFormat";
 import { StringProcessButtons } from "./components/StringProcessButtons";
 import { AlwaysOpenAccordian } from "./components/Accordian";
+import useDataFetch from "./hooks/useDataFetch";
+import { saveData, deleteHotfile as deleteHotfileAPI } from "./utils/api";
 
 //data should be renamed so that there is not structure like data.data
 export default function App() {
-  const [data, setData] = useState({
-    data: dataFormat,
-  });
+  const [data, setData] = useDataFetch();
 
   const handleChange = (event, index = null) => {
     const { name, value } = event.target;
@@ -34,45 +34,22 @@ export default function App() {
     });
   };
 
-  // Load JSON from API
-  useEffect(() => {
-    fetch("http://localhost:3001/api/data")
-      .then((response) => response.json())
-      .then((jsonObject) => setData(jsonObject))
-      .catch((error) =>
-        console.error("There was a problem with the fetch operation", error),
-      );
-  }, []);
-
-  // Function to handle saving data
-  const handleSave = () => {
-    fetch("http://localhost:3001/update", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }), // Your JSON data goes here
-    })
-      .then((response) => response.json())
-      .then((serverData) => console.log(serverData)) // Log any response from the server
-      .catch((error) => console.error("Error:", error));
-    console.log("Data to send:", data);
-  };
-
-  //Function to delete file
+  // Wrapped function to handle deletion with UI feedback (e.g., reloading)
   const deleteHotfile = async () => {
     try {
-      const response = await fetch("http://localhost:3001/delete-hotfile", {
-        method: "DELETE",
-      });
-      const responseData = await response.text();
-      console.log(responseData);
+      await deleteHotfileAPI();
       window.location.reload();
       alert("File deleted successfully");
     } catch (error) {
-      console.error("Failed to delete the file:", error);
       alert("Failed to delete the file");
     }
+  };
+
+  // Wrapped function for handleSave to use in the UI
+  const handleSave = () => {
+    saveData(data)
+      .then((serverData) => console.log(serverData))
+      .catch((error) => console.error("Error:", error));
   };
 
   /* App Structure */
