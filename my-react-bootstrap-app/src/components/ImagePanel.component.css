@@ -1,0 +1,6 @@
+.custom-image {
+    width: 100%; /* Scale width to 100% of its container */
+    height: auto; /* Adjust height automatically */
+    object-fit: cover; /* 'cover', 'contain', 'fill', 'scale-down', or 'none' */
+  }
+  

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "../utils/api"; // Adjust the path as necessary
-import { dataFormat } from "../utils/dataFormat";
+import { dataFormat } from "../utils/dataStructures";
 
 const useDataFetch = () => {
   const [data, setData] = useState({

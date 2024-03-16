@@ -35,14 +35,6 @@ const dataCategories = {
 };
 */
 
-//Image setting -> move to CSS file later
-export const imageStyle = {
-  width: "100%", // Scale width to 100% of its container
-  height: "auto", // Adjust height automatically
-  // For more control, you can use 'object-fit' property to specify how the image should be resized
-  objectFit: "cover", // 'cover', 'contain', 'fill', 'scale-down', or 'none'
-};
-
 //Fields that will be edited by the convertion settigns.
 export const relevantDataFields = {
   first_mes: "",
