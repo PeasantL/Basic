@@ -97,6 +97,7 @@ export default function App() {
               <Button variant="primary" onClick={handleStringQuote}>Convert Quotes</Button>
               <Button variant="primary" onClick={handleStringBoth}>Convert Both</Button>
               <Button variant="primary" disabled="true">Download Folder</Button>
+              <Button variant="primary" disabled="true">Change Image</Button>
               </div>
             </Col>
             <Col>
