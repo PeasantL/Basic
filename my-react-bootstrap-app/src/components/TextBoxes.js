@@ -77,5 +77,5 @@ export const TextForm = ({ textValues, handleChange }) => {
 
 TextForm.propTypes = {
   textValues: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.object.isRequired,
 };

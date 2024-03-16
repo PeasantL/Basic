@@ -74,5 +74,5 @@ export function StringProcessButtons({ data, setData }) {
 
 StringProcessButtons.propTypes = {
   data: PropTypes.object.isRequired,
-  setData: PropTypes.func.isRequired,
+  setData: PropTypes.object.isRequired,
 };
