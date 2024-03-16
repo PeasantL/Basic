@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Container, Image, Row, Col, Button } from "react-bootstrap";
-import { TextForm } from "./components/form";
-import { UploadImage } from "./components/upload";
-import { dataFormat, imageStyle } from "./components/data_format";
+import { TextForm } from "./components/Form";
+import { UploadImage } from "./components/Upload";
+import { dataFormat, imageStyle } from "./utils/dataFormat";
 import {
   processStringBoth,
   processStringAsterisk,
   processStringQuotes,
   mes_exampleStringProcess,
-} from "./utils/stringprocessing";
-import { AlwaysOpenAccordian } from "./components/accordian";
+} from "./utils/stringProcessing";
+import { AlwaysOpenAccordian } from "./components/Accordian";
 
 export default function App() {
   const [data, setData] = useState({
