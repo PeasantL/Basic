@@ -3,6 +3,7 @@ import { Container, Image, Row, Col, Button} from 'react-bootstrap';
 import { TextForm } from './components/form';
 import { UploadImage } from './hooks/upload';
 import { dataFormat, imageStyle } from './components/data_format'
+import { processStringBoth, processStringAsterisk, processStringQuotes } from './utils/stringprocessing';
 
 
 export default function App() {
@@ -18,6 +19,25 @@ export default function App() {
       data: { ...prevData.data, [name]: value }
     }));
   };
+
+  const processFields = (processingFunction) => {
+    setData(prevData => {
+      const { first_mes, mes_example } = prevData.data;
+      return {
+        ...prevData,
+        data: {
+          ...prevData.data,
+          first_mes: processingFunction(first_mes),
+          mes_example: processingFunction(mes_example),
+        },
+      };
+    });
+  };
+
+  const handleStringBoth = () => processFields(processStringBoth);
+  const handleStringAsterisk = () => processFields(processStringAsterisk);
+  const handleStringQuote = () => processFields(processStringQuotes);
+
 
   // Load JSON from API
   useEffect(() => { 
@@ -44,6 +64,7 @@ export default function App() {
     console.log('Data to send:', data);
   };
   
+  //Function to delete file
   const deleteHotfile = async () => {
     try {
       const response = await fetch('http://localhost:3001/delete-hotfile', {
@@ -59,7 +80,6 @@ export default function App() {
     }
   };
 
-
   /* App Structure */
   return (
     <div className= "mt-3 mb-3">
@@ -73,10 +93,9 @@ export default function App() {
               <Button variant="primary" onClick={deleteHotfile}>Purge Upload</Button>
               {/*To change Save file to Save file(s)*/}
               <Button variant="primary" onClick={handleSave}>Save File</Button>
-              <Button variant="primary" disabled="true">Reset File</Button>
-              <Button variant="primary" disabled="true">Convert Asterisk</Button>
-              <Button variant="primary" disabled="true">Convert Speech Marks</Button>
-              <Button variant="primary" disabled="true">Convert Both</Button>
+              <Button variant="primary" onClick={handleStringAsterisk}>Convert Asterisk</Button>
+              <Button variant="primary" onClick={handleStringQuote}>Convert Quotes</Button>
+              <Button variant="primary" onClick={handleStringBoth}>Convert Both</Button>
               <Button variant="primary" disabled="true">Download Folder</Button>
               </div>
             </Col>

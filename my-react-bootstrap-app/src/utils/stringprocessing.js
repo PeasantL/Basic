@@ -1,9 +1,10 @@
-export function processString(inputString) {
+export function processStringBoth(inputString) {
   // Check for the presence of both asterisks and quotes
   if (inputString.includes('*') && inputString.includes('"')) {
       // Do nothing, string is correct
       console.log("File is correct, no processing done.")
-      return inputString;
+      let finalString = inputString;
+      return finalString;
   } 
 
 
@@ -24,7 +25,7 @@ export function processString(inputString) {
             let parts = element.split('*').filter(part => part !== '').map(part => part.trim());
             return parts.map((part, index) => {
                 if (index % 2 === 0) { // Odd element (even index), wrap with quotes
-                    return '\\"' + part + '\\"';
+                    return '"' + part + '"';
                 } else { // Even element (odd index), wrap with asterisks
                     return '*' + part + '*';
                 }
@@ -36,7 +37,7 @@ export function processString(inputString) {
                 if (index % 2 === 0) { // Odd element (even index), wrap with asterisks
                     return '*' + part + '*';
                 } else { // Even element (odd index), wrap with quotes
-                    return '\\"' + part + '\\"';
+                    return '"' + part + '"';
                 }
             }).join(' ');
         }
@@ -73,23 +74,23 @@ export function processString(inputString) {
           }
 
           // Process if the element contains text
-          if (element[0] !== '\"') {
+          if (element[0] !== '"') {
               // Element doescle not start with an asterisk
-              let parts = element.split('\"').filter(part => part !== '').map(part => part.trim());
+              let parts = element.split('"').filter(part => part !== '').map(part => part.trim());
 
               return parts.map((part, index) => {
                   if (index % 2 === 0) { // Odd element (even index), wrap with quotes
                       return '*' + part + '*';
                   } else { // Even element (odd index), wrap with asterisks
-                      return '\\"' + part + '\\"';
+                      return '"' + part + '"';
                   }
               }).join(' ');
           } else {
               // Element starts with an asterisk
-              let parts = element.split('\"').filter(part => part !== '').map(part => part.trim());
+              let parts = element.split('"').filter(part => part !== '').map(part => part.trim());
               return parts.map((part, index) => {
                   if (index % 2 === 0) { // Odd element (even index), wrap with asterisks
-                      return '\\"' + part + '\\"';
+                      return '"' + part + '"';
                   } else { // Even element (odd index), wrap with quotes
                       return '*' + part + '*';
                   }
@@ -116,14 +117,34 @@ export function processString(inputString) {
   // If none of the above, return the string unmodified or apply other logic
   else {
       console.log("Bad file - No processing done due to lack of special chars");
-      return(inputString)
+      let finalString = inputString;
+      return(finalString)
   }
 }
 
+export function processStringAsterisk(finalString) {
+    console.log("Processing asterisk")
+    console.log(finalString)
+    let stringBoth = processStringBoth(finalString).replaceAll('"', "");
+    console.log(stringBoth)
+    return stringBoth;
+}
+
+export function processStringQuotes(finalString) {
+    let stringBoth = processStringBoth(finalString);
+    return stringBoth.replaceAll('*', "");
+}
+
+
 /*
+//Remove export tag to test
+
 const testString = "part1 *test* someime *adg*\n\n\n*part2 agfsarfgs*part3 part4 *yes* part 6\n\n\npart4*dass*dsfgsdgdgfd*f*";
 const quoteString = 'part1 \"test\" someime \"adg\"\n\n\n\"part2 agfsarfgs\"part3 part4 \"yes\" part 6\n\n\npart4\"dass\"dsfgsdgdgfd\"f\"'
 
-console.log(processString(testString))
-console.log(processString(quoteString))
+
+console.log(processStringQuotes(testString))
+
+console.log(processStringBoth(testString))
+console.log(processStringBoth(quoteString))
 */
