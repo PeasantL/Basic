@@ -11,28 +11,53 @@ export default function App() {
     data: dataFormat
   });
 
-  // Handle form changes directly in the `data` state
-  const handleChange = (event) => {
+  const handleChange = (event, index = null) => {
     const { name, value } = event.target;
-    setData(prevData => ({
-      ...prevData,
-      data: { ...prevData.data, [name]: value }
-    }));
-  };
-
-  const processFields = (processingFunction) => {
     setData(prevData => {
-      const { first_mes, mes_example } = prevData.data;
-      return {
-        ...prevData,
-        data: {
-          ...prevData.data,
-          first_mes: processingFunction(first_mes),
-          mes_example: processingFunction(mes_example),
-        },
-      };
+      // Check if the field is an array
+      if (index !== null) {
+        // Handle array: update specific element
+        const updatedArray = [...prevData.data[name]]; // Clone the array to avoid direct state mutation
+        updatedArray[index] = value; // Update the element at the specific index
+        return {
+          ...prevData,
+          data: { ...prevData.data, [name]: updatedArray } // Update the state with the modified array
+        };
+      } else {
+        // Handle regular field: just update the value
+        return {
+          ...prevData,
+          data: { ...prevData.data, [name]: value }
+        };
+      }
     });
   };
+  
+
+  const processFields = (processingFunction) => {
+  setData(prevData => {
+    // Destructuring to extract the array and any other fields you wish to process
+    const { first_mes, mes_example, alternate_greetings } = prevData.data;
+
+    // Apply processingFunction to first_mes and mes_example directly
+    const processedFirstMes = processingFunction(first_mes);
+    const processedMesExample = processingFunction(mes_example);
+
+    // Apply processingFunction to each element in alternate_greeting if it exists
+    const processedAlternateGreetings = alternate_greetings.map(item => processingFunction(item));
+
+    return {
+      ...prevData,
+      data: {
+        ...prevData.data,
+        first_mes: processedFirstMes,
+        mes_example: processedMesExample,
+        alternate_greetings: processedAlternateGreetings,
+      },
+    };
+  });
+};
+
 
   const handleStringBoth = () => processFields(processStringBoth);
   const handleStringAsterisk = () => processFields(processStringAsterisk);

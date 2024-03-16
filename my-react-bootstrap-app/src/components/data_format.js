@@ -1,6 +1,6 @@
 //Current implement fields for the settings 
 export const dataFormat = {
-    "alternate_greetings": "",
+    "alternate_greetings": [],
     "avatar": "",
     "character_version": "",
     "creator": "",
@@ -14,7 +14,7 @@ export const dataFormat = {
     "post_history_instructions": "",
     "scenario": "",
     "system_prompt": "",
-    "tags": ""
+    "tags": []
 }
 
 //Image setting 

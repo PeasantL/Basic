@@ -134,17 +134,3 @@ export function processStringQuotes(finalString) {
     let stringBoth = processStringBoth(finalString);
     return stringBoth.replaceAll('*', "");
 }
-
-
-/*
-//Remove export tag to test
-
-const testString = "part1 *test* someime *adg*\n\n\n*part2 agfsarfgs*part3 part4 *yes* part 6\n\n\npart4*dass*dsfgsdgdgfd*f*";
-const quoteString = 'part1 \"test\" someime \"adg\"\n\n\n\"part2 agfsarfgs\"part3 part4 \"yes\" part 6\n\n\npart4\"dass\"dsfgsdgdgfd\"f\"'
-
-
-console.log(processStringQuotes(testString))
-
-console.log(processStringBoth(testString))
-console.log(processStringBoth(quoteString))
-*/
