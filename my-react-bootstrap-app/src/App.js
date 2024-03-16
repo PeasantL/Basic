@@ -3,7 +3,7 @@ import { Container, Image, Row, Col, Button} from 'react-bootstrap';
 import { TextForm } from './components/form';
 import { UploadImage } from './hooks/upload';
 import { dataFormat, imageStyle } from './components/data_format'
-import { processStringBoth, processStringAsterisk, processStringQuotes } from './utils/stringprocessing';
+import { processStringBoth, processStringAsterisk, processStringQuotes, mes_exampleStringProcess } from './utils/stringprocessing';
 
 
 export default function App() {
@@ -41,7 +41,7 @@ export default function App() {
 
     // Apply processingFunction to first_mes and mes_example directly
     const processedFirstMes = processingFunction(first_mes);
-    const processedMesExample = processingFunction(mes_example);
+    const processedMesExample = mes_exampleStringProcess(mes_example, processingFunction);
 
     // Apply processingFunction to each element in alternate_greeting if it exists
     const processedAlternateGreetings = alternate_greetings.map(item => processingFunction(item));

@@ -1,4 +1,7 @@
 //Current implement fields for the settings 
+
+
+//Todo -> seperate dataFormat
 export const dataFormat = {
     "alternate_greetings": [],
     "avatar": "",
@@ -26,9 +29,9 @@ export const imageStyle = {
 }
 
 
-//Alternate greeting removed for now, to be implemented
 //Fields that will be edited by the convertion settigns.
 export const relevantDataFields = {
     "first_mes": "",
     "mes_example": "",
+    "alternate_greetings": []
 }

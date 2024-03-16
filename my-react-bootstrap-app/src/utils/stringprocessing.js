@@ -123,10 +123,7 @@ export function processStringBoth(inputString) {
 }
 
 export function processStringAsterisk(finalString) {
-    console.log("Processing asterisk")
-    console.log(finalString)
     let stringBoth = processStringBoth(finalString).replaceAll('"', "");
-    console.log(stringBoth)
     return stringBoth;
 }
 
@@ -134,3 +131,86 @@ export function processStringQuotes(finalString) {
     let stringBoth = processStringBoth(finalString);
     return stringBoth.replaceAll('*', "");
 }
+
+
+//preprosessing  of mes_examples to remove <START> and {+/w} structures 
+function modifyStringAndTrackPositions(inputString) {
+    // Splitting the input string into lines
+    const lines = inputString.split('\n');
+    const trackedPatterns = [];
+    const patternRegex = /<START>|{{\w+}}:/g; // Adjust regex as needed for different patterns
+
+    // Iterate over the lines to find and track patterns
+    lines.forEach((line, index) => {
+        let match;
+        while ((match = patternRegex.exec(line)) !== null) {
+            // Tracking the pattern and its line position
+            trackedPatterns.push({ pattern: match[0], line: index + 1 }); // Adding 1 to make line positions 1-based
+            // Remove the pattern from the line
+            line = line.replace(match[0], '');
+        }
+        // Update the line without the patterns
+        lines[index] = line;
+    });
+
+    // Joining the modified lines back into a single string
+    const modifiedString = lines.join('\n');
+
+    return {
+        modifiedString,
+        trackedPatterns
+    };
+}
+
+
+//post-processing of mes_examples to re-insert <START> and {+/w} structures
+function reinsertStructures(modifiedString, trackedPatterns) {
+    // Splitting the modified string into lines
+    let lines = modifiedString.split('\n');
+  
+    // Reinsert the patterns at their original positions
+    trackedPatterns.forEach(({ pattern, line }) => {
+      // Check if the line exists, otherwise, add empty lines
+      if (line - 1 < lines.length) {
+        lines[line - 1] = pattern + lines[line - 1];
+      } else {
+        while (lines.length < line - 1) {
+          lines.push('');
+        }
+        lines.push(pattern);
+      }
+    });
+  
+    // Join the lines back into a single string
+    return lines.join('\n');
+}
+  
+
+export function mes_exampleStringProcess(inputString, processingFunction){
+
+    const {modifiedString, trackedPatterns} = modifyStringAndTrackPositions(inputString);
+
+    //implement function checking?
+    const processedString = processingFunction(modifiedString);
+
+    const finalString = reinsertStructures(processedString, trackedPatterns);
+
+    return finalString
+}
+
+
+/*
+//Basic test case 
+var testString = `<START>
+{{char}}: *She turned her attention to the audience once more, announcing dramatically,* "Well folks, looks like the chemistry here is explosive! Who knows what other surprises our intriguing guests have in store? Stay tuned, we'll be right back after these messages from our sponsors! Please tell, who are yours sponsors today, dear guests? Thanks to whom are you on our show today?"
+
+<START>
+{{char}}: So, next question for you all, guys! What's your favorite naughty fantasy?
+{{char2}}: *avoids or refuses to asnwer the question*
+{{char}}: My-my, looks like I'll have to use MAGIC? *takes out her magic wand and casts a spell, magic dust appears around, which falls on the guest who refuses to tell the truth.* And here is my super-duper "Truth Spell!" Now you can't help but tell me the truth, so let's get back to the question again!`
+
+
+var resultString = mes_exampleStringProcess(testString, processStringQuotes);
+
+console.log(resultString);
+*/
