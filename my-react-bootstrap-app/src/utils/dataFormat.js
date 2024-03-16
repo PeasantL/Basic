@@ -19,7 +19,23 @@ export const dataFormat = {
   tags: [],
 };
 
-//Image setting
+/*
+const dataCategories = {
+  defaultSetting: ["alternate_greetings", "first_mes", "mes_example"],
+  addSetting: [
+    "description",
+    "name",
+    "personality",
+    "post_history_instructions",
+    "scenario",
+    "system_prompts",
+  ],
+  miscSettings: ["avatar", "creator", "creator_notes", "extensions", "tags"],
+  cardSettings: ["spec", "spec_version"],
+};
+*/
+
+//Image setting -> move to CSS file later
 export const imageStyle = {
   width: "55%", // Scale width to 100% of its container
   height: "auto", // Adjust height automatically

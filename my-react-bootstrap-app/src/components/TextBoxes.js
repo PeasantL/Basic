@@ -2,22 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-/*
-const dataCategories = {
-  defaultSetting: ["alternate_greetings", "first_mes", "mes_example"],
-  addSetting: [
-    "description",
-    "name",
-    "personality",
-    "post_history_instructions",
-    "scenario",
-    "system_prompts",
-  ],
-  miscSettings: ["avatar", "creator", "creator_notes", "extensions", "tags"],
-  cardSettings: ["spec", "spec_version"],
-};
-*/
-
 export const TextForm = ({ textValues, handleChange }) => {
   const textAreaRef = useRef({});
 

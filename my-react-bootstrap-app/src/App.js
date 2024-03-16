@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Container, Image, Row, Col, Button } from "react-bootstrap";
-import { TextForm } from "./components/Form";
-import { UploadImage } from "./components/Upload";
+import { TextForm } from "./components/TextBoxes";
+import { UploadImage } from "./components/UploadButton";
 import { dataFormat, imageStyle } from "./utils/dataFormat";
-import {
-  processStringBoth,
-  processStringAsterisk,
-  processStringQuotes,
-  mes_exampleStringProcess,
-} from "./utils/stringProcessing";
+import { StringProcessButtons } from "./components/StringProcessButtons";
 import { AlwaysOpenAccordian } from "./components/Accordian";
 
+//data should be renamed so that there is not structure like data.data
 export default function App() {
   const [data, setData] = useState({
     data: dataFormat,
@@ -37,39 +33,6 @@ export default function App() {
       }
     });
   };
-
-  const processFields = (processingFunction) => {
-    setData((prevData) => {
-      // Destructuring to extract the array and any other fields you wish to process
-      const { first_mes, mes_example, alternate_greetings } = prevData.data;
-
-      // Apply processingFunction to first_mes and mes_example directly
-      const processedFirstMes = processingFunction(first_mes);
-      const processedMesExample = mes_exampleStringProcess(
-        mes_example,
-        processingFunction,
-      );
-
-      // Apply processingFunction to each element in alternate_greeting if it exists
-      const processedAlternateGreetings = alternate_greetings.map((item) =>
-        processingFunction(item),
-      );
-
-      return {
-        ...prevData,
-        data: {
-          ...prevData.data,
-          first_mes: processedFirstMes,
-          mes_example: processedMesExample,
-          alternate_greetings: processedAlternateGreetings,
-        },
-      };
-    });
-  };
-
-  const handleStringBoth = () => processFields(processStringBoth);
-  const handleStringAsterisk = () => processFields(processStringAsterisk);
-  const handleStringQuote = () => processFields(processStringQuotes);
 
   // Load JSON from API
   useEffect(() => {
@@ -121,7 +84,7 @@ export default function App() {
             <Col>
               <div className="d-grid gap-4">
                 <UploadImage />
-                <Button variant="primary" disabled="true">
+                <Button variant="primary" disabled>
                   Upload Folder
                 </Button>
                 <Button variant="primary" onClick={deleteHotfile}>
@@ -131,19 +94,11 @@ export default function App() {
                 <Button variant="primary" onClick={handleSave}>
                   Save File
                 </Button>
-                <Button variant="primary" onClick={handleStringAsterisk}>
-                  Convert Asterisk
-                </Button>
-                <Button variant="primary" onClick={handleStringQuote}>
-                  Convert Quotes
-                </Button>
-                <Button variant="primary" onClick={handleStringBoth}>
-                  Convert Both
-                </Button>
-                <Button variant="primary" disabled="true">
+                <StringProcessButtons data={data} setData={setData} />
+                <Button variant="primary" disabled>
                   Download Folder
                 </Button>
-                <Button variant="primary" disabled="true">
+                <Button variant="primary" disabled>
                   Change Image
                 </Button>
               </div>
@@ -160,7 +115,6 @@ export default function App() {
           </Row>
         </div>
       </Container>
-
       {/*Text boxes rendering*/}
       <Container>
         <AlwaysOpenAccordian />
