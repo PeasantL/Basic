@@ -1,18 +1,18 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import "./FileStatePanel.component.css";
-import { saveData, deleteHotfile as deleteHotfileAPI } from "../utils/api";
+import { saveData, deleteUploads as deleteUploadsAPI } from "../utils/api";
 import { UploadImage } from "./UploadButton";
 
 export default function FileContentPanel(data) {
   // Wrapped function to handle deletion with UI feedback (e.g., reloading)
-  const deleteHotfile = async () => {
+  const deleteUploads = async () => {
     try {
-      await deleteHotfileAPI();
+      await deleteUploadsAPI();
       window.location.reload();
-      alert("File deleted successfully");
+      alert("Folder deleted successfully");
     } catch (error) {
-      alert("Failed to delete the file");
+      alert("Failed to delete the folder");
     }
   };
 
@@ -35,7 +35,7 @@ export default function FileContentPanel(data) {
           <Button variant="primary" disabled>
             Download From Cloud
           </Button>
-          <Button variant="primary" onClick={deleteHotfile}>
+          <Button variant="primary" onClick={deleteUploads}>
             Purge Upload
           </Button>
           <Button variant="primary" onClick={handleSave}>
