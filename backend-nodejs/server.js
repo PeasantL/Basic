@@ -121,7 +121,7 @@ app.delete('/delete-uploads', (req, res) => {
 });
 
 // Endpoint to upload image
-app.post('/upload/*', upload.single('image'), async (req, res) => {
+app.post('/upload*', upload.single('image'), async (req, res) => {
   try {
     // need to remove the "uploads/"" as image is used relative to the folder already
     image = req.file.path.replace("uploads/", "");
