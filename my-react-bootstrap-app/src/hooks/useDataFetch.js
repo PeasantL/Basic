@@ -7,13 +7,20 @@ const useDataFetch = () => {
     data: dataFormat,
   });
 
+  const refreshData = async () => {
+    try {
+      const newData = await fetchData();
+      setData(newData);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchData()
-      .then(setData)
-      .catch((error) => console.error("Failed to fetch data:", error));
+    refreshData(); // Initial fetch
   }, []);
 
-  return [data, setData];
+  return [data, setData, refreshData]; // Return refreshData as part of the hook's output
 };
 
 export default useDataFetch;

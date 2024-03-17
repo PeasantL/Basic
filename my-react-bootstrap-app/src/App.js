@@ -10,7 +10,7 @@ import "./App.component.css";
 
 //data should be renamed so that there is not structure like data.data
 export default function App() {
-  const [data, setData] = useDataFetch();
+  const [data, setData, refreshData] = useDataFetch();
 
   const handleChange = (event, index = null) => {
     const { name, value } = event.target;
@@ -41,7 +41,7 @@ export default function App() {
       <Container className="custom-panels-container">
         <Row>
           <Col>
-            <PanelFileState data={data} />
+            <PanelFileState data={data} refreshData={refreshData} />
           </Col>
           <Col>
             <PanelFileContent setData={setData} />

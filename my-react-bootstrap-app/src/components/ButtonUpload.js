@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import ButtonBase from "./ButtonBase";
+import PropTypes from "prop-types";
 
-export default function ButtonUpload() {
+export default function ButtonUpload({ refreshData }) {
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
@@ -36,7 +37,7 @@ export default function ButtonUpload() {
       console.error("Error:", error);
       alert("Failed to upload file.");
     }
-    window.location.reload(); //To remove, change to something that updates all necessary states
+    refreshData();
   };
 
   return (
@@ -51,3 +52,7 @@ export default function ButtonUpload() {
     </div>
   );
 }
+
+ButtonUpload.propTypes = {
+  refreshData: PropTypes.func.isRequired,
+};
