@@ -42,5 +42,5 @@ code {
 
   /* our defined css theme variables */
   --custom-color: #4c212a;
-  --custom-border-radius: 1ex;
+  --custom-border-radius: 16px;
 }
