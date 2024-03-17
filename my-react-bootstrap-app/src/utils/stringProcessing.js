@@ -222,19 +222,3 @@ export function mes_exampleStringProcess(inputString, processingFunction) {
 
   return finalString;
 }
-
-/*
-//Basic test case 
-var testString = `<START>
-{{char}}: *She turned her attention to the audience once more, announcing dramatically,* "Well folks, looks like the chemistry here is explosive! Who knows what other surprises our intriguing guests have in store? Stay tuned, we'll be right back after these messages from our sponsors! Please tell, who are yours sponsors today, dear guests? Thanks to whom are you on our show today?"
-
-<START>
-{{char}}: So, next question for you all, guys! What's your favorite naughty fantasy?
-{{char2}}: *avoids or refuses to asnwer the question*
-{{char}}: My-my, looks like I'll have to use MAGIC? *takes out her magic wand and casts a spell, magic dust appears around, which falls on the guest who refuses to tell the truth.* And here is my super-duper "Truth Spell!" Now you can't help but tell me the truth, so let's get back to the question again!`
-
-
-var resultString = mes_exampleStringProcess(testString, processStringQuotes);
-
-console.log(resultString);
-*/

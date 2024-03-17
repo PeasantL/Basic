@@ -1,11 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { FormTextBox } from "./components/FormTextBoxes";
-import { AlwaysOpenAccordian } from "./components/Accordian";
+import { AccordianTextFrame } from "./components/AccordianTextFrame";
 import useDataFetch from "./hooks/useDataFetch";
 import PanelFileState from "./components/PanelFileState";
 import PanelFileContent from "./components/PanelFileContent";
 import PanelImage from "./components/PanelImage";
+import VariationsExample from "./components/BadgeTags";
 import "./App.component.css";
 
 //data should be renamed so that there is not structure like data.data
@@ -34,8 +34,6 @@ export default function App() {
     });
   };
 
-  console.log("In app.js " + typeof setData);
-
   /* App Structure */
   return (
     <div className="custom-page-container">
@@ -57,9 +55,14 @@ export default function App() {
       <Container>
         <Card className="custom-text-box">
           <Card.Body>
-            <h2>Tavern</h2>
-            <AlwaysOpenAccordian />
-            <FormTextBox textValues={data.data} handleChange={handleChange} />
+            <h2>{data.data.name}</h2>
+            <div className="mt-3 mb-3">
+              <VariationsExample data={data} />
+            </div>
+            <AccordianTextFrame
+              textValues={data.data}
+              handleChange={handleChange}
+            />
           </Card.Body>
         </Card>
       </Container>
