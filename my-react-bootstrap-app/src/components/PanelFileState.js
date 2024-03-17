@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import "./PanelFileState.component.css";
+import "./PanelFile.component.css";
 import { saveData, deleteUploads as deleteUploadsAPI } from "../utils/api";
 import ButtonBase from "./ButtonBase";
 import ButtonUpload from "./ButtonUpload";
@@ -26,7 +26,7 @@ export default function FileStatePanel({ data, refreshData }) {
   };
 
   return (
-    <Card className="custom-card">
+    <Card className="custom-glassy">
       <Card.Header>File State Panel</Card.Header>
       <Card.Body>
         <div className="custom-grid">

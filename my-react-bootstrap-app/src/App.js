@@ -53,7 +53,7 @@ export default function App() {
       </Container>
       {/*Text boxes rendering*/}
       <Container>
-        <Card className="custom-text-box">
+        <Card className="custom-glassy">
           <Card.Body>
             <h2>{data.data.name}</h2>
             <div className="mt-3 mb-3">
@@ -68,7 +68,7 @@ export default function App() {
       </Container>
       {/*Raw String Temp rendering*/}
       <Container className="custom-raw-string">
-        <Card className="custom-raw-string-text-box">
+        <Card className="custom-glassy">
           <Card.Body>
             <h3>Raw String Check</h3>
             <pre>{JSON.stringify(data, null, 2)}</pre>
