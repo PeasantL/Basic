@@ -8,6 +8,9 @@ const app = express();
 const PORT = 3001;
 const { pngDecode, pngEncode } = require("./extract_node");
 
+app.use(cors());
+app.use(express.json());
+
 // Ensure the upload folder exists
 if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads");
@@ -35,9 +38,6 @@ app.get('/api/images', (req, res) => {
     res.sendFile(filePath);
   });
 });
-
-app.use(cors());
-app.use(express.json());
 
 // Opens Json Data
 app.get('/api/data', async (req, res) => {

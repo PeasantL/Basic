@@ -6,11 +6,15 @@ import PanelFileState from "./components/PanelFileState";
 import PanelFileContent from "./components/PanelFileContent";
 import PanelImage from "./components/PanelImage";
 import VariationsExample from "./components/BadgeTags";
+import useImageRefresher from "./hooks/useImageRefresher";
 import "./App.component.css";
 
 //data should be renamed so that there is not structure like data.data
 export default function App() {
   const [data, setData, refreshData] = useDataFetch();
+  const [imageUrl, refreshImage] = useImageRefresher(
+    "http://localhost:3001/api/images",
+  );
 
   const handleChange = (event, index = null) => {
     const { name, value } = event.target;
@@ -41,13 +45,17 @@ export default function App() {
       <Container className="custom-panels-container">
         <Row>
           <Col>
-            <PanelFileState data={data} refreshData={refreshData} />
+            <PanelFileState
+              data={data}
+              refreshData={refreshData}
+              refreshImage={refreshImage}
+            />
           </Col>
           <Col>
             <PanelFileContent setData={setData} />
           </Col>
           <Col>
-            <PanelImage />
+            <PanelImage imageUrl={imageUrl} />
           </Col>
         </Row>
       </Container>
@@ -57,6 +65,8 @@ export default function App() {
           <Card.Body>
             <h2>{data.data.name}</h2>
             <div className="mt-3 mb-3">
+              {" "}
+              {/*take this out */}
               <VariationsExample data={data} />
             </div>
             <AccordianTextFrame

@@ -29,6 +29,7 @@ export const saveData = async (data) => {
   }
 };
 
+/*
 // Function to delete hotfile
 export const deleteHotfile = async () => {
   try {
@@ -43,6 +44,7 @@ export const deleteHotfile = async () => {
     throw error; // Re-throw to handle it in the component
   }
 };
+*/
 
 // Function to clear upload folder
 export const deleteUploads = async () => {
