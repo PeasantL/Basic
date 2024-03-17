@@ -43,3 +43,18 @@ export const deleteHotfile = async () => {
     throw error; // Re-throw to handle it in the component
   }
 };
+
+// Function to clear upload folder
+export const deleteUploads = async () => {
+  try {
+    const response = await fetch("http://localhost:3001/delete-uploads", {
+      method: "DELETE",
+    });
+    const responseData = await response.text();
+    console.log(responseData);
+    return responseData; // You might want to return something to indicate success
+  } catch (error) {
+    console.error("Failed to delete the folder contents:", error);
+    throw error; // Re-throw to handle it in the component
+  }
+};

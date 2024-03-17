@@ -2,10 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 const path = require('path');
 const app = express();
 const PORT = 3001;
 const { pngDecode, pngEncode } = require("./extract_node");
+
+// Ensure the upload folder exists
+if (!fs.existsSync("uploads")) {
+  fs.mkdirSync("uploads");
+}
 
 // Setup storage engine
 const storage = multer.diskStorage({
@@ -33,7 +39,7 @@ app.get('/api/images', (req, res) => {
 app.use(cors());
 app.use(express.json());
 
-//Opens Json Data
+// Opens Json Data
 app.get('/api/data', async (req, res) => {
   try {
     // Assuming you have a mechanism to identify the correct image
@@ -58,6 +64,19 @@ app.delete('/delete-hotfile', (req, res) => {
     }
     console.log('File deleted successfully');
     res.send('File deleted successfully');
+  });
+});
+
+// Empty the uploads directory
+app.delete('/delete-uploads', (req, res) => {
+  const filePath = path.join(__dirname, 'uploads/');
+  fsExtra.emptyDir(filePath, { recursive: true }, (err) => {
+    if (err) {
+      console.error(`Failed to delete "${filePath}":`, err);
+      return res.status(500).send(`Failed to delete "${filePath}"`);
+    }
+    console.log(`"${filePath}" deleted successfully`);
+    res.send(`"${filePath}" deleted successfully`);
   });
 });
 
