@@ -4,8 +4,9 @@ import { AccordianTextFrame } from "./components/AccordianTextFrame";
 import useDataFetch from "./hooks/useDataFetch";
 import PanelFileState from "./components/PanelFileState";
 import PanelFileContent from "./components/PanelFileContent";
+import PanelCloud from "./components/PanelCloud";
 import PanelImage from "./components/PanelImage";
-import VariationsExample from "./components/BadgeTags";
+import BadgeTags from "./components/BadgeTags";
 import useImageRefresher from "./hooks/useImageRefresher";
 import "./App.component.css";
 
@@ -52,7 +53,12 @@ export default function App() {
             />
           </Col>
           <Col>
-            <PanelFileContent setData={setData} />
+            <Row>
+              <PanelFileContent setData={setData} />
+            </Row>
+            <Row>
+              <PanelCloud />
+            </Row>
           </Col>
           <Col>
             <PanelImage imageUrl={imageUrl} />
@@ -67,7 +73,7 @@ export default function App() {
             <div className="mt-3 mb-3">
               {" "}
               {/*take this out */}
-              <VariationsExample data={data} />
+              <BadgeTags data={data} />
             </div>
             <AccordianTextFrame
               textValues={data.data}

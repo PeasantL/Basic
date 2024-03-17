@@ -3,7 +3,7 @@ import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
 import PropTypes from "prop-types";
 
-function VariationsExample({ data }) {
+function BadgeTags({ data }) {
   return (
     <Stack direction="horizontal" gap={2}>
       {data.data.tags.map((element, index) => {
@@ -17,8 +17,8 @@ function VariationsExample({ data }) {
   );
 }
 
-export default VariationsExample;
+export default BadgeTags;
 
-VariationsExample.propTypes = {
+BadgeTags.propTypes = {
   data: PropTypes.object.isRequired,
 };

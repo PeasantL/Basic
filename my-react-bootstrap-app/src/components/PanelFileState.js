@@ -6,7 +6,7 @@ import ButtonBase from "./ButtonBase";
 import ButtonUpload from "./ButtonUpload";
 import PropTypes from "prop-types";
 
-export default function FileStatePanel({ data, refreshData, refreshImage }) {
+export default function PanelFileState({ data, refreshData, refreshImage }) {
   // Wrapped function to handle deletion with UI feedback (e.g., reloading)
   const deleteUploads = async () => {
     try {
@@ -28,7 +28,7 @@ export default function FileStatePanel({ data, refreshData, refreshImage }) {
 
   return (
     <Card className="custom-glassy">
-      <Card.Header>File State Panel</Card.Header>
+      <Card.Header>File State</Card.Header>
       <Card.Body>
         <div className="custom-grid">
           <ButtonUpload refreshData={refreshData} refreshImage={refreshImage} />
@@ -36,7 +36,6 @@ export default function FileStatePanel({ data, refreshData, refreshImage }) {
           <ButtonBase text="Download From Cloud" disabled />
           <ButtonBase text="Purge Upload" onClick={deleteUploads} />
           <ButtonBase text="Save File" onClick={handleSave} />
-          <ButtonBase text="Download From Cloud" disabled />
           <ButtonBase text="Download Folder" disabled />
         </div>
       </Card.Body>
@@ -44,7 +43,7 @@ export default function FileStatePanel({ data, refreshData, refreshImage }) {
   );
 }
 
-FileStatePanel.propTypes = {
+PanelFileState.propTypes = {
   data: PropTypes.object.isRequired,
   refreshData: PropTypes.func.isRequired,
   refreshImage: PropTypes.func.isRequired,

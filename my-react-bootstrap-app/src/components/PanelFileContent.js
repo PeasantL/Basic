@@ -5,10 +5,10 @@ import ButtonStringProcess from "./ButtonStringProcess";
 import "./PanelFile.component.css";
 import PropTypes from "prop-types";
 
-export default function FileContentPanel({ setData }) {
+export default function PanelFileContent({ setData }) {
   return (
     <Card className="custom-glassy">
-      <Card.Header>File Content Panel</Card.Header>
+      <Card.Header>File Content</Card.Header>
       <Card.Body>
         <div className="custom-grid">
           <ButtonStringProcess setData={setData} />
@@ -19,6 +19,6 @@ export default function FileContentPanel({ setData }) {
   );
 }
 
-FileContentPanel.propTypes = {
+PanelFileContent.propTypes = {
   setData: PropTypes.func.isRequired,
 };
