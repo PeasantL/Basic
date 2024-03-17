@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
-import "./FileStatePanel.component.css";
+import { Card } from "react-bootstrap";
+import "./PanelFileState.component.css";
 import { saveData, deleteUploads as deleteUploadsAPI } from "../utils/api";
-import { UploadImage } from "./UploadButton";
+import ButtonBase from "./ButtonBase";
+import ButtonUpload from "./ButtonUpload";
 
 export default function FileStatePanel(data) {
   // Wrapped function to handle deletion with UI feedback (e.g., reloading)
@@ -24,26 +25,17 @@ export default function FileStatePanel(data) {
   };
 
   return (
-    <Card bg="success">
+    <Card className="custom-card">
       <Card.Header>File State Panel</Card.Header>
       <Card.Body>
         <div className="custom-grid">
-          <UploadImage />
-          <Button variant="primary" disabled>
-            Upload Folder
-          </Button>
-          <Button variant="primary" disabled>
-            Download From Cloud
-          </Button>
-          <Button variant="primary" onClick={deleteUploads}>
-            Purge Upload
-          </Button>
-          <Button variant="primary" onClick={handleSave}>
-            Save File
-          </Button>
-          <Button variant="primary" disabled>
-            Download Folder
-          </Button>
+          <ButtonUpload />
+          <ButtonBase text="Upload Folder" disabled />
+          <ButtonBase text="Download From Cloud" disabled />
+          <ButtonBase text="Purge Upload" onClick={deleteUploads} />
+          <ButtonBase text="Save File" onClick={handleSave} />
+          <ButtonBase text="Download From Cloud" disabled />
+          <ButtonBase text="Download Folder" disabled />
         </div>
       </Card.Body>
     </Card>

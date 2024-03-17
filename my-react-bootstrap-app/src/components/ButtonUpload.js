@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import { Button } from "react-bootstrap";
+import ButtonBase from "./ButtonBase";
 
-export function UploadImage() {
+export default function ButtonUpload() {
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
@@ -47,7 +47,7 @@ export function UploadImage() {
         onChange={handleFileChange}
         ref={fileInputRef}
       />
-      <Button onClick={handleButtonClick}>Upload Image</Button>
+      <ButtonBase text="Upload Image" onClick={handleButtonClick} />
     </div>
   );
 }

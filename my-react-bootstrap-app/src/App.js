@@ -1,11 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { TextForm } from "./components/TextBoxes";
+import { FormTextBox } from "./components/FormTextBoxes";
 import { AlwaysOpenAccordian } from "./components/Accordian";
 import useDataFetch from "./hooks/useDataFetch";
-import FileStatePanel from "./components/FileStatePanel";
-import FileContentPanel from "./components/FileContentPanel";
-import ImagePanel from "./components/ImagePanel";
+import PanelFileState from "./components/PanelFileState";
+import PanelFileContent from "./components/PanelFileContent";
+import PanelImage from "./components/PanelImage";
 import "./App.component.css";
 
 //data should be renamed so that there is not structure like data.data
@@ -43,29 +43,29 @@ export default function App() {
       <Container className="custom-panels-container">
         <Row>
           <Col>
-            <FileStatePanel data={data} />
+            <PanelFileState data={data} />
           </Col>
           <Col>
-            <FileContentPanel data={data} setData={setData} />
+            <PanelFileContent setData={setData} />
           </Col>
           <Col>
-            <ImagePanel />
+            <PanelImage />
           </Col>
         </Row>
       </Container>
       {/*Text boxes rendering*/}
-      <Container className=".custom-text-box">
-        <Card>
+      <Container>
+        <Card className="custom-text-box">
           <Card.Body>
             <h2>Tavern</h2>
             <AlwaysOpenAccordian />
-            <TextForm textValues={data.data} handleChange={handleChange} />
+            <FormTextBox textValues={data.data} handleChange={handleChange} />
           </Card.Body>
         </Card>
       </Container>
       {/*Raw String Temp rendering*/}
       <Container className="custom-raw-string">
-        <Card>
+        <Card className="custom-raw-string-text-box">
           <Card.Body>
             <h3>Raw String Check</h3>
             <pre>{JSON.stringify(data, null, 2)}</pre>

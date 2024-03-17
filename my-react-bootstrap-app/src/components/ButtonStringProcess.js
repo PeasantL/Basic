@@ -1,14 +1,14 @@
+import React from "react";
+import ButtonBase from "./ButtonBase";
 import {
   processStringBoth,
   processStringAsterisk,
   processStringQuotes,
   mes_exampleStringProcess,
 } from "../utils/stringProcessing";
-import { Button } from "react-bootstrap";
-import React from "react";
 import PropTypes from "prop-types";
 
-export function StringProcessButtons({ data, setData }) {
+export default function ButtonStringProcess({ setData }) {
   const processFields = (processingFunction) => {
     setData((prevData) => {
       // Destructuring to extract the array and any other fields you wish to process
@@ -44,35 +44,13 @@ export function StringProcessButtons({ data, setData }) {
 
   return (
     <>
-      <Button
-        variant="primary"
-        onClick={handleStringAsterisk}
-        data={data}
-        setData={setData}
-      >
-        Convert Asterisk
-      </Button>
-      <Button
-        variant="primary"
-        onClick={handleStringQuote}
-        data={data}
-        setData={setData}
-      >
-        Convert Quote
-      </Button>
-      <Button
-        variant="primary"
-        onClick={handleStringBoth}
-        data={data}
-        setData={setData}
-      >
-        Convert Both
-      </Button>
+      <ButtonBase text="Convert Asterisk" onClick={handleStringAsterisk} />
+      <ButtonBase text="Convert Quote" onClick={handleStringQuote} />
+      <ButtonBase text="Convert Both" onClick={handleStringBoth} />
     </>
   );
 }
 
-StringProcessButtons.propTypes = {
-  data: PropTypes.object.isRequired,
+ButtonStringProcess.propTypes = {
   setData: PropTypes.func.isRequired,
 };

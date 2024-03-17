@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-export const TextForm = ({ textValues, handleChange }) => {
+export const FormTextBox = ({ textValues, handleChange }) => {
   const textAreaRef = useRef({});
 
   const adjustHeight = (key, index = null) => {
@@ -75,7 +75,7 @@ export const TextForm = ({ textValues, handleChange }) => {
   );
 };
 
-TextForm.propTypes = {
+FormTextBox.propTypes = {
   textValues: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
