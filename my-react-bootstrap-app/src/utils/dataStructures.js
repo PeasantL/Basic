@@ -20,8 +20,7 @@ export const dataFormat = {
 };
 
 //Tags should be shown as badges -> See chub.ai and bootstrap react badges
-/*
-const dataCategories = {
+export const dataCategories = {
   defaultSetting: ["alternate_greetings", "first_mes", "mes_example"],
   addSetting: [
     "description",
@@ -31,12 +30,11 @@ const dataCategories = {
     "scenario",
     "system_prompts",
   ],
-  miscSettings: ["avatar", "creator", "creator_notes", "extensions", "tags"],
-  cardSettings: ["spec", "spec_version"],
+  miscSettings: ["avatar", "creator", "creator_notes"],
+  tags: "tags",
 };
-*/
 
-//Fields that will be edited by the convertion settigns.
+//Fields that will be edited by the convertion settings.
 export const relevantDataFields = {
   first_mes: "",
   mes_example: "",

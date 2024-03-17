@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-export const FormTextBox = ({ textValues, handleChange }) => {
+export const FormTextBox = ({ textValues, handleChange, includedKeys }) => {
   const textAreaRef = useRef({});
 
   const adjustHeight = (key, index = null) => {
@@ -21,24 +21,30 @@ export const FormTextBox = ({ textValues, handleChange }) => {
   };
 
   useEffect(() => {
-    Object.keys(textValues).forEach((key) => {
-      if (Array.isArray(textValues[key])) {
-        textValues[key].forEach((_, index) => adjustHeight(key, index));
-      } else {
-        adjustHeight(key);
+    includedKeys.forEach((key) => {
+      if (textValues[key]) {
+        // Check if the key exists in textValues
+        if (Array.isArray(textValues[key])) {
+          textValues[key].forEach((_, index) => adjustHeight(key, index));
+        } else {
+          adjustHeight(key);
+        }
       }
     });
-  }, [textValues]);
+  }, [textValues, includedKeys]); // Include includedKeys in dependency array
 
   const handleDynamicChange = (e, index = null) => {
-    handleChange(e, index);
-    adjustHeight(e.target.name, index);
+    if (includedKeys.includes(e.target.name)) {
+      // Only handle change if key is included
+      handleChange(e, index);
+      adjustHeight(e.target.name, index);
+    }
   };
 
   return (
     <>
-      {Object.keys(textValues).map((key) =>
-        Array.isArray(textValues[key]) ? (
+      {includedKeys.map((key) =>
+        textValues[key] && Array.isArray(textValues[key]) ? (
           textValues[key].map((value, index) => (
             <Form.Group
               key={`${key}-${index}`}
@@ -78,4 +84,5 @@ export const FormTextBox = ({ textValues, handleChange }) => {
 FormTextBox.propTypes = {
   textValues: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
+  includedKeys: PropTypes.array.isRequired,
 };
