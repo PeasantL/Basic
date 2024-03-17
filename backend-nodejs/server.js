@@ -17,6 +17,7 @@ if (!fs.existsSync("uploads")) {
 }
 
 // Variable for tracking the current image
+// Set as relative to "uploads" to (potentially) reduce chance a bug allows IO outside the folder
 var image = ''
 // For now, upon start, it also pulls whatever first png image it finds in the directory
 fs.readdir("uploads", { recursive: true }, function(err, files){
@@ -33,13 +34,18 @@ fs.readdir("uploads", { recursive: true }, function(err, files){
 });
 
 // Setup storage engine
+//TODO: we do not yet handle errors, there is potential for the backend to just crash
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, 'uploads/') // Ensure this directory exists
+    dir = req.url.replace('/upload', 'uploads');
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    cb(null, dir) // Ensure this directory exists
   },
   filename: function(req, file, cb) {
-    image = file.originalname
-    cb(null, image) // TODO: check probably unsafe
+    file = file.originalname
+    cb(null, file) //TODO: check probably unsafe
   }
 });
 
@@ -115,9 +121,10 @@ app.delete('/delete-uploads', (req, res) => {
 });
 
 // Endpoint to upload image
-app.post('/upload', upload.single('image'), async (req, res) => {
+app.post('/upload/*', upload.single('image'), async (req, res) => {
   try {
-    // Here, you can also implement image processing or decoding logic if needed
+    // need to remove the "uploads/"" as image is used relative to the folder already
+    image = req.file.path.replace("uploads/", "");
     console.log('File uploaded successfully:', req.file.path);
     res.json({ message: 'File uploaded successfully', filePath: req.file.path });
   } catch (error) {

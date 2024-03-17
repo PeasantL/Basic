@@ -4,6 +4,7 @@ import "./PanelFile.component.css";
 import { saveData, deleteUploads as deleteUploadsAPI } from "../utils/api";
 import ButtonBase from "./ButtonBase";
 import ButtonUpload from "./ButtonUpload";
+import ButtonUploadFolder from "./ButtonUploadFolder";
 import PropTypes from "prop-types";
 
 export default function PanelFileState({ data, refreshData, refreshImage }) {
@@ -32,7 +33,10 @@ export default function PanelFileState({ data, refreshData, refreshImage }) {
       <Card.Body>
         <div className="custom-grid">
           <ButtonUpload refreshData={refreshData} refreshImage={refreshImage} />
-          <ButtonBase text="Upload Folder" disabled />
+          <ButtonUploadFolder
+            refreshData={refreshData}
+            refreshImage={refreshImage}
+          />
           <ButtonBase text="Download From Cloud" disabled />
           <ButtonBase text="Purge Upload" onClick={deleteUploads} />
           <ButtonBase text="Save File" onClick={handleSave} />
