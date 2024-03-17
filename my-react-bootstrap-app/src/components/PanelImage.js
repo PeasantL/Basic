@@ -1,6 +1,7 @@
 import React from "react";
 import { Image } from "react-bootstrap";
 import PropTypes from "prop-types";
+import "./PanelImage.component.css";
 
 export default function PanelImage({ imageUrl }) {
   // Now, `refreshImage` can be called to refresh the image. This can be done here or passed to other components/events.

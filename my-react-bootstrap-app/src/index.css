@@ -5,27 +5,43 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to bottom, #4c212a, #643033, #7b413c, #925343, #a76749, #ab7648, #ac8649, #aa964f, #95a259, #7dac6d, #63b487, #44bba4);} 
+  /* bg gradient setting */
+  background-image: linear-gradient(to bottom, #4c212a, #643033, #7b413c, #925343, #a76749, #ab7648, #ac8649, #aa964f, #95a259, #7dac6d, #63b487, #44bba4);
+} 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 ::-webkit-scrollbar {
   height: 12px;
   width: 12px;
   background: rgba(255, 255, 255, 0.30);
-  border-radius: 1ex;
+  border-radius: var(--custom-border-radius);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(11.5px);
   -webkit-backdrop-filter: blur(11.5px);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4c212a;
-  -webkit-border-radius: 1ex;
+  background: var(--custom-color);
+  -webkit-border-radius: var(--custom-border-radius);
   /* -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75); */
 }
 
 /* ::-webkit-scrollbar-corner {
   background: #000;
 } */
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--custom-color);
+  color: #fff;
+}
+
+[data-bs-theme=dark] {
+  --bs-body-bg: #282121;
+
+  /* our defined css theme variables */
+  --custom-color: #4c212a;
+  --custom-border-radius: 16px;
+}
