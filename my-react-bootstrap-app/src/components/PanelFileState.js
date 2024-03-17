@@ -11,7 +11,8 @@ export default function FileStatePanel({ data, refreshData, refreshImage }) {
   const deleteUploads = async () => {
     try {
       await deleteUploadsAPI();
-      window.location.reload(); //Must change to something that does not refresh the whole page
+      refreshData();
+      refreshImage();
       alert("Folder deleted successfully");
     } catch (error) {
       alert("Failed to delete the folder");
