@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { StringProcessButtons } from "./StringProcessButtons";
-import "./FileStatePanel.component.css";
+import "./FileContentPanel.component.css";
+import PropTypes from "prop-types";
 
-export default function FileStatePanel(data, setData) {
+export default function FileContentPanel({ data, setData }) {
   return (
     <Card bg="success">
       <Card.Header>File Content Panel</Card.Header>
@@ -18,3 +19,8 @@ export default function FileStatePanel(data, setData) {
     </Card>
   );
 }
+
+FileContentPanel.propTypes = {
+  data: PropTypes.object.isRequired,
+  setData: PropTypes.func.isRequired,
+};

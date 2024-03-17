@@ -36,7 +36,7 @@ export function UploadImage() {
       console.error("Error:", error);
       alert("Failed to upload file.");
     }
-    window.location.reload();
+    window.location.reload(); //To remove, change to something that updates all necessary states
   };
 
   return (

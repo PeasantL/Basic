@@ -34,6 +34,8 @@ export default function App() {
     });
   };
 
+  console.log("In app.js " + typeof setData);
+
   /* App Structure */
   return (
     <div className="custom-page-container">
@@ -41,10 +43,10 @@ export default function App() {
       <Container className="custom-panels-container">
         <Row>
           <Col>
-            <FileStatePanel data={data} setData={setData} />
+            <FileStatePanel data={data} />
           </Col>
           <Col>
-            <FileContentPanel data={data} />
+            <FileContentPanel data={data} setData={setData} />
           </Col>
           <Col>
             <ImagePanel />
@@ -52,7 +54,7 @@ export default function App() {
         </Row>
       </Container>
       {/*Text boxes rendering*/}
-      <Container>
+      <Container className=".custom-text-box">
         <Card>
           <Card.Body>
             <h2>Tavern</h2>

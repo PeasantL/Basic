@@ -4,12 +4,12 @@ import "./FileStatePanel.component.css";
 import { saveData, deleteHotfile as deleteHotfileAPI } from "../utils/api";
 import { UploadImage } from "./UploadButton";
 
-export default function FileContentPanel(data) {
+export default function FileStatePanel(data) {
   // Wrapped function to handle deletion with UI feedback (e.g., reloading)
   const deleteHotfile = async () => {
     try {
       await deleteHotfileAPI();
-      window.location.reload();
+      window.location.reload(); //Must change to something as this is not react-like
       alert("File deleted successfully");
     } catch (error) {
       alert("Failed to delete the file");

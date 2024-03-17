@@ -2,7 +2,7 @@
 
 //Todo -> seperate dataFormat
 export const dataFormat = {
-  alternate_greetings: [],
+  alternate_greetings: [""],
   avatar: "",
   character_version: "",
   creator: "",
@@ -16,9 +16,10 @@ export const dataFormat = {
   post_history_instructions: "",
   scenario: "",
   system_prompt: "",
-  tags: [],
+  tags: [""],
 };
 
+//Tags should be shown as badges -> See chub.ai and bootstrap react badges
 /*
 const dataCategories = {
   defaultSetting: ["alternate_greetings", "first_mes", "mes_example"],
