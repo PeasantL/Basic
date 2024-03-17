@@ -16,13 +16,25 @@ if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads");
 }
 
+// Variable for tracking the current image
+var image = ''
+// For now, upon start, it also pulls whatever first png image it finds in the directory
+fs.readdir("uploads", { recursive: true }, function(err, files){
+  filesList = files.filter(function(e){
+    return path.extname(e).toLowerCase() === '.png'
+  });
+  image = filesList[0];
+  console.log(filesList);
+});
+
 // Setup storage engine
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, 'uploads/') // Ensure this directory exists
   },
   filename: function(req, file, cb) {
-    cb(null, "hotfile.png")
+    image = file.originalname
+    cb(null, image) // TODO: check probably unsafe
   }
 });
 
@@ -30,7 +42,7 @@ const upload = multer({ storage: storage });
 
 // Serve static files from uploads directory
 app.get('/api/images', (req, res) => {
-  const filePath = path.join(__dirname, 'uploads', 'hotfile.png');
+  const filePath = path.join(__dirname, 'uploads', image);
   fs.access(filePath, fs.constants.F_OK, (err) => {
     if (err) {
       return res.status(404).send('File not found');
@@ -39,12 +51,14 @@ app.get('/api/images', (req, res) => {
   });
 });
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Opens Json Data
 app.get('/api/data', async (req, res) => {
   try {
     // Assuming you have a mechanism to identify the correct image
     // For demonstration, using a static file name
-    const decodedData = await pngDecode("uploads/hotfile.png");
+    const decodedData = await pngDecode(path.join(__dirname, 'uploads', image));
     if (decodedData) {
       res.json(decodedData);
     } else {
@@ -55,8 +69,8 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
-app.delete('/delete-hotfile', (req, res) => {
-  const filePath = path.join(__dirname, 'uploads', 'hotfile.png');
+app.delete('/delete-image', (req, res) => {
+  const filePath = path.join(__dirname, 'uploads', image);
   fs.unlink(filePath, (err) => {
     if (err) {
       console.error('Failed to delete file:', err);
@@ -92,14 +106,14 @@ app.post('/upload', upload.single('image'), async (req, res) => {
   }
 });
 
-
 // Endpoint to upload image
 app.post('/update', upload.single('jsonUpdate'), async (req, res) => {
   try {
     // Here, you can also implement image processing or decoding logic if needed
     /*console.log('File uploaded successfully:', req.body.data);*/
-    const updatedPng = await pngEncode("uploads/hotfile.png", req.body.data);
-    fs.writeFile("uploads/test.png", updatedPng, (err) => {
+    filename = path.join(__dirname, 'uploads', image);
+    const updatedPng = await pngEncode(filename, req.body.data);
+    fs.writeFile(filename, updatedPng, (err) => {
       if (err) {
         console.error('Error writing file:', err);
       } else {
@@ -111,6 +125,5 @@ app.post('/update', upload.single('jsonUpdate'), async (req, res) => {
     res.status(500).send('Error uploading file');
   }
 });
-
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
