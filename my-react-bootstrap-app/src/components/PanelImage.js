@@ -8,12 +8,7 @@ export default function PanelImage({ imageUrl }) {
   console.log(imageUrl);
   return (
     <div>
-      <Image
-        src={imageUrl}
-        alt="Dynamic Image"
-        className="custom-image"
-        rounded
-      />
+      <Image src={imageUrl} alt="Dynamic Image" className="custom-image" />
       {/* The refreshImage function can be called on some event, like a button click, or from parent components */}
     </div>
   );
