@@ -5,9 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to right, #4c212a, #643033, #7b413c, #925343, #a76749, #ab7648, #ac8649, #aa964f, #95a259, #7dac6d, #63b487, #44bba4);
-  scrollbar-color: #4c212a;
-} 
+  background-image: linear-gradient(to bottom, #4c212a, #643033, #7b413c, #925343, #a76749, #ab7648, #ac8649, #aa964f, #95a259, #7dac6d, #63b487, #44bba4);} 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -15,7 +13,7 @@ code {
 ::-webkit-scrollbar {
   height: 12px;
   width: 12px;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.30);
   border-radius: 1ex;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(11.5px);

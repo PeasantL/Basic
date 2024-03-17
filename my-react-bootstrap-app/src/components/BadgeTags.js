@@ -8,7 +8,7 @@ function VariationsExample({ data }) {
     <Stack direction="horizontal" gap={2}>
       {data.data.tags.map((element, index) => {
         return (
-          <Badge bg="success" key={index}>
+          <Badge className="custom-glassy" bg="none" key={index}>
             {element}
           </Badge>
         );
