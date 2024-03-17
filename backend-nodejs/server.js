@@ -24,7 +24,12 @@ fs.readdir("uploads", { recursive: true }, function(err, files){
     return path.extname(e).toLowerCase() === '.png'
   });
   image = filesList[0];
-  console.log(filesList);
+  if (!image) {
+    console.log("No uploaded images!");
+  }
+  else {
+    console.log(`Found uploaded image: ${image}`);
+  }
 });
 
 // Setup storage engine
@@ -51,7 +56,22 @@ app.get('/api/images', (req, res) => {
   });
 });
 
+// allows us to get any files within the uploads folder (including subdirectory files, but never folders)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// returns a list of png files found in the uploads folder
+app.get('/api/get-png-list', async (req, res) => {
+  try {
+    fs.readdir("uploads", { recursive: true }, function(err, files){
+      filesList = files.filter(function(e){
+        return path.extname(e).toLowerCase() === '.png'
+      });
+      res.json({ files: filesList });
+    });
+  } catch (err) {
+    res.status(500).send('Error processing request');
+  }
+});
 
 // Opens Json Data
 app.get('/api/data', async (req, res) => {
