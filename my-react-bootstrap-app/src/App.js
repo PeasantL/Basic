@@ -55,7 +55,7 @@ export default function App() {
       </Container>
       {/*Text boxes rendering*/}
       <Container>
-        <Card className="custom-text-box">
+        <Card className="custom-glassy">
           <Card.Body>
             <h2>Tavern</h2>
             <AlwaysOpenAccordian />
@@ -65,7 +65,7 @@ export default function App() {
       </Container>
       {/*Raw String Temp rendering*/}
       <Container className="custom-raw-string">
-        <Card className="custom-raw-string-text-box">
+        <Card className="custom-glassy">
           <Card.Body>
             <h3>Raw String Check</h3>
             <pre>{JSON.stringify(data, null, 2)}</pre>

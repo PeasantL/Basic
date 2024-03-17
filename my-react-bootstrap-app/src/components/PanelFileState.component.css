@@ -1,8 +1,0 @@
-.custom-grid {
-    display: grid;
-    gap: 1.5rem; /* Equivalent to Bootstrap's .gap-4 */
-  }
-
-.custom-card {
-  background-color: #1A84A3;
-}
