@@ -29,3 +29,12 @@ code {
 /* ::-webkit-scrollbar-corner {
   background: #000;
 } */
+
+.accordion-button:not(.collapsed) {
+  background-color: #4c212a;
+  color: #fff;
+}
+
+[data-bs-theme=dark] {
+  --bs-body-bg: #282121
+}
