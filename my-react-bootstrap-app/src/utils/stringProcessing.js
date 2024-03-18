@@ -165,7 +165,7 @@ function modifyStringAndTrackPositions(inputString) {
   // Splitting the input string into lines
   const lines = inputString.split("\n");
   const trackedPatterns = [];
-  const patternRegex = /<START>|{{\w+}}:/g; // Adjust regex as needed for different patterns
+  const patternRegex = /<START>|{{\w+}}: /g; // Adjust regex as needed for different patterns
 
   // Iterate over the lines to find and track patterns
   lines.forEach((line, index) => {
