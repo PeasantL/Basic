@@ -40,13 +40,13 @@ export default function PanelFileState({ data, refreshData, refreshImage }) {
 
           <ButtonBase text="Purge Upload" onClick={deleteUploads} />
           <ButtonBase
-            text="Save File"
+            text="Save Changes to Image"
             onClick={handleSave}
             disabled={node === "none" || node === "folder"}
           />
         </div>
       </Card.Body>
-      <Card.Header>File State</Card.Header>
+      <Card.Header>Folder State</Card.Header>
       <Card.Body>
         <div className="custom-grid">
           <ButtonUploadFolder

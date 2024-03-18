@@ -13,6 +13,7 @@ const useDataFetch = () => {
       setData(newData);
     } catch (error) {
       console.error("Failed to fetch data:", error);
+      setData({ data: dataFormat });
     }
   };
 
