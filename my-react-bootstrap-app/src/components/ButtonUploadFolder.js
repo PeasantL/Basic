@@ -1,12 +1,16 @@
 import React, { useRef } from "react";
 import ButtonBase from "./ButtonBase";
 import PropTypes from "prop-types";
+import { useNodeContext } from "../hooks/useNode";
 
 export default function ButtonUploadFolder({ refreshData, refreshImage }) {
   const fileInputRef = useRef(null);
 
+  const { setNode } = useNodeContext();
+
   const handleButtonClick = () => {
     // Directly open the file dialog
+    setNode("folder");
     fileInputRef.current.click();
   };
 

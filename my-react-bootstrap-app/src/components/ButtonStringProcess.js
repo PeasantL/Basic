@@ -6,9 +6,12 @@ import {
   processStringQuotes,
   mes_exampleStringProcess,
 } from "../utils/stringProcessing";
+import { useNodeContext } from "../hooks/useNode";
 import PropTypes from "prop-types";
 
 export default function ButtonStringProcess({ setData }) {
+  const { node } = useNodeContext();
+
   const processFields = (processingFunction) => {
     setData((prevData) => {
       // Destructuring to extract the array and any other fields you wish to process
@@ -44,9 +47,21 @@ export default function ButtonStringProcess({ setData }) {
 
   return (
     <>
-      <ButtonBase text="Convert Asterisk" onClick={handleStringAsterisk} />
-      <ButtonBase text="Convert Quote" onClick={handleStringQuote} />
-      <ButtonBase text="Convert Both" onClick={handleStringBoth} />
+      <ButtonBase
+        text="Convert Asterisk File(s)"
+        onClick={handleStringAsterisk}
+        disabled={node === "none"}
+      />
+      <ButtonBase
+        text="Convert Quote File(s)"
+        onClick={handleStringQuote}
+        disabled={node === "none"}
+      />
+      <ButtonBase
+        text="Convert Both File(s)"
+        onClick={handleStringBoth}
+        disabled={node === "none"}
+      />
     </>
   );
 }

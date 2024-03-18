@@ -23,9 +23,4 @@ ButtonBase.propTypes = {
   disabled: PropTypes.bool, // disabled is optional but, if provided, must be a boolean
 };
 
-// Define default props for the BaseButton component
-ButtonBase.defaultProps = {
-  disabled: false, // Buttons are enabled by default
-};
-
 export default ButtonBase;
