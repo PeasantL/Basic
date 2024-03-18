@@ -95,20 +95,8 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
-app.delete('/delete-image', (req, res) => {
-  const filePath = path.join(__dirname, 'uploads', image);
-  fs.unlink(filePath, (err) => {
-    if (err) {
-      console.error('Failed to delete file:', err);
-      return res.status(500).send('Failed to delete file');
-    }
-    console.log('File deleted successfully');
-    res.send('File deleted successfully');
-  });
-});
-
 // Empty the uploads directory
-app.delete('/delete-uploads', (req, res) => {
+app.delete('/api/delete-uploads', (req, res) => {
   const filePath = path.join(__dirname, 'uploads/');
   fsExtra.emptyDir(filePath, { recursive: true }, (err) => {
     if (err) {
@@ -133,23 +121,30 @@ app.post('/upload*', upload.single('image'), async (req, res) => {
   }
 });
 
-// Endpoint to upload image
-app.post('/update', upload.single('jsonUpdate'), async (req, res) => {
+// Updates and re-encodes the image with received json data
+// Allows the target file to be specified by "filename" query
+app.post('/api/update', upload.single('jsonUpdate'), async (req, res) => {
+  let filename = path.join(__dirname, 'uploads', image);
+  
+  // if filename ios given, use this instead
+  if (req.query.filename) {
+    filename = path.join(__dirname, 'uploads', req.query.filename);
+  }
+  
+  // return if filename given is invalid
+  if (!fs.existsSync(filename)) {
+    return res.status(500).send(`The file "${filename}" could not be found on the server`);
+  }
+  
   try {
-    // Here, you can also implement image processing or decoding logic if needed
-    /*console.log('File uploaded successfully:', req.body.data);*/
-    filename = path.join(__dirname, 'uploads', image);
+    // re-encode the png and write to file
     const updatedPng = await pngEncode(filename, req.body.data);
-    fs.writeFile(filename, updatedPng, (err) => {
-      if (err) {
-        console.error('Error writing file:', err);
-      } else {
-        console.log('File saved successfully.');
-      }
-    });
+    fs.writeFileSync(filename, updatedPng);
+
+    res.send(`${filename} has been encoded with new data`);
   } catch (error) {
-    console.error('Upload Error:', error);
-    res.status(500).send('Error uploading file');
+    console.error(error);
+    res.status(500).send(`Unable to re-encode ${filename}`);
   }
 });
 

@@ -11,9 +11,15 @@ export const fetchData = async () => {
 };
 
 // Function to save data
-export const saveData = async (data) => {
+export const saveData = async (data, filename) => {
+  let url = "http://localhost:3001/api/update";
+  // given a filename is specified, send query parameter to the backend
+  if (filename) {
+    url += `?filename=${filename}`;
+  }
+
   try {
-    const response = await fetch("http://localhost:3001/update", {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +55,7 @@ export const deleteHotfile = async () => {
 // Function to clear upload folder
 export const deleteUploads = async () => {
   try {
-    const response = await fetch("http://localhost:3001/delete-uploads", {
+    const response = await fetch("http://localhost:3001/api/delete-uploads", {
       method: "DELETE",
     });
     const responseData = await response.text();
