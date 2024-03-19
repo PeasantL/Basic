@@ -61,7 +61,6 @@ const pngEncode = async (filePath, newTextContent) => {
       chunks[chunks.length - 1] = { name: "tEXt", data: charaData };
       chunks.push(end);
     }
-    console.error(chunks);
     const newPngBuffer = encodeChunks(chunks);
     console.log('tEXt chunk edited and PNG recompiled successfully.');
     return newPngBuffer;

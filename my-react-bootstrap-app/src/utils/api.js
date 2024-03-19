@@ -25,16 +25,13 @@ export const saveData = async (data, filename) => {
   }
 
   try {
-    const response = await fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ data }),
     });
-    const serverData = await response.json();
-    console.log(serverData);
-    return serverData;
   } catch (error) {
     console.error("Error:", error);
     throw error; // Re-throw to handle it in the component
