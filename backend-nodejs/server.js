@@ -79,22 +79,6 @@ app.get('/api/get-png-list', async (req, res) => {
   }
 });
 
-// Opens Json Data
-app.get('/api/data', async (req, res) => {
-  try {
-    // Assuming you have a mechanism to identify the correct image
-    // For demonstration, using a static file name
-    const decodedData = await pngDecode(path.join(__dirname, 'uploads', image));
-    if (decodedData) {
-      res.json(decodedData);
-    } else {
-      res.status(404).send('Data not found');
-    }
-  } catch (err) {
-    res.status(500).send('Error processing request');
-  }
-});
-
 // Empty the uploads directory
 app.delete('/api/delete-uploads', (req, res) => {
   const filePath = path.join(__dirname, 'uploads/');
@@ -121,22 +105,28 @@ app.post('/upload*', upload.single('image'), async (req, res) => {
   }
 });
 
+// GET request for the json data from target image
+app.get('/api/data', async (req, res) => {
+  try {
+    let filename = getImageFilename(req);
+    // get decoded png data from target file
+    const decodedData = await pngDecode(filename);
+    if (decodedData) {
+      res.json(decodedData);
+    } else {
+      res.status(404).send(`Data not found for ${filename}`);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error processing request');
+  }
+});
+
 // Updates and re-encodes the image with received json data
 // Allows the target file to be specified by "filename" query
 app.post('/api/update', upload.single('jsonUpdate'), async (req, res) => {
-  let filename = path.join(__dirname, 'uploads', image);
-  
-  // if filename ios given, use this instead
-  if (req.query.filename) {
-    filename = path.join(__dirname, 'uploads', req.query.filename);
-  }
-  
-  // return if filename given is invalid
-  if (!fs.existsSync(filename)) {
-    return res.status(500).send(`The file "${filename}" could not be found on the server`);
-  }
-  
   try {
+    let filename = getImageFilename(req);
     // re-encode the png and write to file
     const updatedPng = await pngEncode(filename, req.body.data);
     fs.writeFileSync(filename, updatedPng);
@@ -147,5 +137,29 @@ app.post('/api/update', upload.single('jsonUpdate'), async (req, res) => {
     res.status(500).send(`Unable to re-encode ${filename}`);
   }
 });
+
+// Returns a valid image file or throws an error
+// -- does not currently check if it is a .png
+function getImageFilename(req) {
+  let filename = path.join(__dirname, 'uploads')
+  
+  // if filename ios given, use this instead
+  if (req.query.filename) {
+    filename = path.join(filename, req.query.filename);
+  }
+  else if (image) {
+    filename = path.join(filename, image)
+  }
+  else {
+    throw `Missing filename in query (or backend image var was not set)`;
+  }
+
+  // return if filename given is invalid
+  if (!fs.existsSync(filename)) {
+    throw `The file "${filename}" could not be found on the server`;
+  }
+
+  return filename;
+}
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
