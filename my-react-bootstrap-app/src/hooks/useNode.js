@@ -1,11 +1,17 @@
 import React from "react";
 import { useState, createContext, useContext } from "react";
 import PropTypes from "prop-types";
+import { getPngList } from "../utils/api";
 
 const NodeContext = createContext();
 
-const useNode = (initialValue = "none") => {
-  const [node, setNodeState] = useState(initialValue);
+const useNode = (initialState = "none") => {
+  const [node, setNodeState] = useState(initialState);
+
+  checkServer().then((serverState) => {
+    setNodeState(serverState);
+    console.error(`we areeee: ${node}`);
+  });
 
   const setNode = (newValue) => {
     if (["none", "file", "folder"].includes(newValue)) {
@@ -17,6 +23,35 @@ const useNode = (initialValue = "none") => {
 
   return [node, setNode];
 };
+
+// finds out what state the uplaods folder on the server is in
+// "none" - no files on server
+// "file" - single file on server[1]
+// "folder" - multiple files on server [1](or single file in a folder)
+async function checkServer() {
+  try {
+    const fileList = (await getPngList()).files;
+    const fileCount = fileList.length;
+
+    console.log(fileList);
+    console.log(fileCount);
+    switch (fileCount) {
+      case 0:
+        return "none";
+      case 1:
+        if (fileList[0].includes("/")) {
+          return "folder";
+        }
+        return "file";
+      default:
+        return "folder";
+    }
+  } catch {
+    // console logged in api function already
+    console.log("Error fetching file list from the backend");
+  }
+  return "none";
+}
 
 export const NodeProvider = ({ children }) => {
   const [node, setNode] = useNode();
