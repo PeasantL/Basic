@@ -10,7 +10,6 @@ const useNode = (initialState = "none") => {
 
   checkServer().then((serverState) => {
     setNodeState(serverState);
-    console.error(`we areeee: ${node}`);
   });
 
   const setNode = (newValue) => {
@@ -33,8 +32,7 @@ async function checkServer() {
     const fileList = (await getPngList()).files;
     const fileCount = fileList.length;
 
-    console.log(fileList);
-    console.log(fileCount);
+    // this code would be awarded an instant fail at Curtin University of Technology
     switch (fileCount) {
       case 0:
         return "none";
