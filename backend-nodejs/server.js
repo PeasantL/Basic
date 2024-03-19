@@ -107,6 +107,8 @@ app.post('/upload*', upload.single('image'), async (req, res) => {
 
 // GET request for the json data from target image
 app.get('/api/data', async (req, res) => {
+  let filename = "";
+
   try {
     let filename = getImageFilename(req);
     // get decoded png data from target file
@@ -125,8 +127,10 @@ app.get('/api/data', async (req, res) => {
 // Updates and re-encodes the image with received json data
 // Allows the target file to be specified by "filename" query
 app.post('/api/update', upload.single('jsonUpdate'), async (req, res) => {
+  let filename = "";
+  
   try {
-    let filename = getImageFilename(req);
+    filename = getImageFilename(req);
     // re-encode the png and write to file
     const updatedPng = await pngEncode(filename, req.body.data);
     fs.writeFileSync(filename, updatedPng);

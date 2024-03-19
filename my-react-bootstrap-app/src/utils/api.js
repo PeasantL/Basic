@@ -1,7 +1,13 @@
 // Function to fetch data from API
-export const fetchData = async () => {
+export const fetchData = async (filename) => {
+  let url = "http://localhost:3001/api/data";
+  // given a filename is specified, send query parameter to the backend
+  if (filename) {
+    url += `?filename=${filename}`;
+  }
+
   try {
-    const response = await fetch("http://localhost:3001/api/data");
+    const response = await fetch(url);
     const data = await response.json();
     return data;
   } catch (error) {

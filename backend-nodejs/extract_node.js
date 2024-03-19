@@ -34,10 +34,10 @@ const pngEncode = async (filePath, newTextContent) => {
 
 
     const pngBuffer = await fs.readFile(filePath);
-    const chunks = extractChunks(pngBuffer);
+    var chunks = extractChunks(pngBuffer);
 
     const stringJson = JSON.stringify(newTextContent)
-    const base64EncodedTextContent = Buffer.from(stringJson).toString('base64');
+    const charaData = Buffer.from(`chara\0${Buffer.from(stringJson).toString('base64')}`, 'utf8');
 
     let found = false;
     for (let i = 0; i < chunks.length; i++) {
@@ -45,8 +45,7 @@ const pngEncode = async (filePath, newTextContent) => {
         const text = Buffer.from(chunks[i].data).toString('utf-8');
         if (text.startsWith('chara')) {
           // Include the 'chara\0' prefix and then the Base64 encoded content
-          const newText = `chara\0${base64EncodedTextContent}`;
-          chunks[i].data = Buffer.from(newText, 'utf8');
+          chunks[i].data = charaData;
           found = true;
           break;
         }
@@ -54,13 +53,18 @@ const pngEncode = async (filePath, newTextContent) => {
     }
 
     if (!found) {
-      console.log("'chara' tEXt chunk not found.");
-      return null;
-    } else {
-      const newPngBuffer = encodeChunks(chunks);
-      console.log('tEXt chunk edited and PNG recompiled successfully.');
-      return newPngBuffer;
+      // if (!dontCreate) {
+      //   console.log("'chara' tEXt chunk not found.");
+      //   return null;
+      // }
+      end = chunks[chunks.length - 1];
+      chunks[chunks.length - 1] = { name: "tEXt", data: charaData };
+      chunks.push(end);
     }
+    console.error(chunks);
+    const newPngBuffer = encodeChunks(chunks);
+    console.log('tEXt chunk edited and PNG recompiled successfully.');
+    return newPngBuffer;
   } catch (error) {
     console.error('Error processing PNG:', error);
     throw error;
