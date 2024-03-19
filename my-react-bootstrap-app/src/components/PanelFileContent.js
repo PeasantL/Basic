@@ -16,7 +16,7 @@ export default function PanelFileContent({ setData }) {
         <div className="custom-grid">
           <ButtonStringProcess setData={setData} />
           <ButtonBase
-            text="Change Image"
+            text="Change Original Image"
             disabled={node === "none" || node === "folder"}
           />
         </div>

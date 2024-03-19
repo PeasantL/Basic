@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const extractChunks = require('png-chunks-extract');
 const encodeChunks = require('png-chunks-encode');
+const { text } = require('express');
 
 const pngDecode = async (filePath) => {
   try {
@@ -8,16 +9,19 @@ const pngDecode = async (filePath) => {
     const allChunks = extractChunks(data);
     const textChunks = allChunks.filter(chunk => chunk.name === 'tEXt');
 
-    if (textChunks.length > 0) {
-      const textChunk = textChunks[0];
-      const contentArray = textChunk.data;
+
+    for (let i=0; i< textChunks.length; i++) {
+      const contentArray = textChunks[i].data;
       const contentText = Buffer.from(contentArray).toString('utf-8');
-      const decodedText = Buffer.from(contentText.slice(5), 'base64').toString('utf-8');
-      return JSON.parse(decodedText);
-    } else {
-      console.log('No tEXt chunks found.');
-      return null;
+
+      if (contentText.slice(0, 5) === "chara") {
+        const decodedText = Buffer.from(contentText.slice(5), 'base64').toString('utf-8');
+        return JSON.parse(decodedText);  
+      }
     }
+    console.log('No tEXt chunks found.');
+    return null;
+
   } catch (err) {
     console.error('Error reading the PNG file:', err);
     throw err;
