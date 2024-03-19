@@ -10,7 +10,7 @@ export default function ButtonUpload({ refreshData, refreshImage }) {
 
   const handleButtonClick = () => {
     // Directly open the file dialog
-    setNode("file");
+
     fileInputRef.current.click();
   };
 
@@ -37,6 +37,7 @@ export default function ButtonUpload({ refreshData, refreshImage }) {
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
+      setNode("file");
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to upload file.");

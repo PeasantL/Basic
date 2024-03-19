@@ -7,6 +7,7 @@ import {
   mes_exampleStringProcess,
 } from "../utils/stringProcessing";
 import { useNodeContext } from "../hooks/useNode";
+import { fetchData, fetchFileList, saveData } from "../utils/api";
 import PropTypes from "prop-types";
 
 export default function ButtonStringProcess({ setData }) {
@@ -41,9 +42,58 @@ export default function ButtonStringProcess({ setData }) {
     });
   };
 
-  const handleStringBoth = () => processFields(processStringBoth);
-  const handleStringAsterisk = () => processFields(processStringAsterisk);
-  const handleStringQuote = () => processFields(processStringQuotes);
+  const handleStringBoth = () => {
+    fetchFileList()
+      .then((fileList) => {
+        if (fileList.length !== 1) {
+          for (let i = 0; i < fileList.length; i++) {
+            /*Multiple files processing */
+            fetchData(fileList[i]);
+            saveData(processFields(processStringBoth));
+          }
+        } else {
+          processFields(processStringBoth);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching file list", error);
+      });
+  };
+  const handleStringAsterisk = () => {
+    fetchFileList()
+      .then((fileList) => {
+        if (fileList.length !== 1) {
+          for (let i = 0; i < fileList.length; i++) {
+            /*Multiple files processing */
+            fetchData(fileList[i]);
+            saveData(processFields(processStringAsterisk));
+          }
+        } else {
+          processFields(processStringAsterisk);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching file list", error);
+      });
+  };
+
+  const handleStringQuote = () => {
+    fetchFileList()
+      .then((fileList) => {
+        if (fileList.length !== 1) {
+          for (let i = 0; i < fileList.length; i++) {
+            /*Multiple files processing */
+            fetchData(fileList[i]);
+            saveData(processFields(processStringQuotes));
+          }
+        } else {
+          processFields(processStringQuotes);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching file list", error);
+      });
+  };
 
   return (
     <>

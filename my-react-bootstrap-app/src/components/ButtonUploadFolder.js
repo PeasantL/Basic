@@ -29,7 +29,7 @@ export default function ButtonUploadFolder({ refreshData, refreshImage }) {
           uploadFolder(selectedFile, folder); // Upload the file immediately after selection
         }
       }
-      alert("Folder uploaded ??");
+      alert("Folder uploaded");
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to upload folder.");

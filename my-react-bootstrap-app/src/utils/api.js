@@ -66,3 +66,14 @@ export const deleteUploads = async () => {
     throw error; // Re-throw to handle it in the component
   }
 };
+
+export const fetchFileList = async () => {
+  try {
+    const response = await fetch("http://localhost:3001/api/get-png-list");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation", error);
+    throw error; // Re-throw to handle it in the component
+  }
+};
