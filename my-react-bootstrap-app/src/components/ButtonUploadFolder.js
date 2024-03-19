@@ -10,7 +10,7 @@ export default function ButtonUploadFolder({ refreshData, refreshImage }) {
 
   const handleButtonClick = () => {
     // Directly open the file dialog
-    setNode("folder");
+
     fileInputRef.current.click();
   };
 
@@ -29,6 +29,7 @@ export default function ButtonUploadFolder({ refreshData, refreshImage }) {
           uploadFolder(selectedFile, folder); // Upload the file immediately after selection
         }
       }
+      setNode("folder");
       alert("Folder uploaded");
     } catch (error) {
       console.error("Error:", error);
