@@ -35,25 +35,6 @@ export const saveData = async (data, filename) => {
   }
 };
 
-// Function to save data
-export const retrieve = async (data) => {
-  try {
-    const response = await fetch("http://localhost:3001/update", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data }),
-    });
-    const serverData = await response.json();
-    console.log(serverData);
-    return serverData;
-  } catch (error) {
-    console.error("Error:", error);
-    throw error; // Re-throw to handle it in the component
-  }
-};
-
 /*
 // Function to delete hotfile
 export const deleteHotfile = async () => {
