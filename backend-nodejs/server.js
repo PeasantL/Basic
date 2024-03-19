@@ -107,9 +107,8 @@ app.post('/upload*', upload.single('image'), async (req, res) => {
 
 // GET request for the json data from target image
 app.get('/api/data', async (req, res) => {
-  let filename = getImageFilename(req);
-
   try {
+    let filename = getImageFilename(req);
     // get decoded png data from target file
     const decodedData = await pngDecode(filename);
     if (decodedData) {
@@ -142,11 +141,17 @@ app.post('/api/update', upload.single('jsonUpdate'), async (req, res) => {
 // Returns a valid image file or throws an error
 // -- does not currently check if it is a .png
 function getImageFilename(req) {
-  let filename = path.join(__dirname, 'uploads', image);
+  let filename = path.join(__dirname, 'uploads')
   
   // if filename ios given, use this instead
   if (req.query.filename) {
-    filename = path.join(__dirname, 'uploads', req.query.filename);
+    filename = path.join(filename, req.query.filename);
+  }
+  else if (image) {
+    filename = path.join(filename, image)
+  }
+  else {
+    throw `Missing filename in query (or backend image var was not set)`;
   }
 
   // return if filename given is invalid
