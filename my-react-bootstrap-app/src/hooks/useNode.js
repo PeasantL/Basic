@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, createContext, useContext } from "react";
 import PropTypes from "prop-types";
-import { getPngList } from "../utils/api";
+import { fetchFileList } from "../utils/api";
 
 const NodeContext = createContext();
 
@@ -29,7 +29,7 @@ const useNode = (initialState = "none") => {
 // "folder" - multiple files on server [1](or single file in a folder)
 async function checkServer() {
   try {
-    const fileList = (await getPngList()).files;
+    const fileList = (await fetchFileList()).files;
     const fileCount = fileList.length;
 
     // this code would be awarded an instant fail at Curtin University of Technology
