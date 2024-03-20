@@ -10,6 +10,7 @@ const useDataFetch = () => {
   const refreshData = async () => {
     try {
       const newData = await fetchData();
+      console.log(newData);
       setData(newData);
     } catch (error) {
       console.error("Failed to fetch data:", error);

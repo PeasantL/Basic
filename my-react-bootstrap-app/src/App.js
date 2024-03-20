@@ -14,30 +14,8 @@ import "./App.component.css";
 export default function App() {
   const [data, setData, refreshData] = useDataFetch();
   const [imageUrl, refreshImage] = useImageRefresher(
-    "http://localhost:3001/api/images",
+    process.env.REACT_APP_IMAGE_API_URL,
   );
-
-  const handleChange = (event, index = null) => {
-    const { name, value } = event.target;
-    setData((prevData) => {
-      // Check if the field is an array
-      if (index !== null) {
-        // Handle array: update specific element
-        const updatedArray = [...prevData.data[name]]; // Clone the array to avoid direct state mutation
-        updatedArray[index] = value; // Update the element at the specific index
-        return {
-          ...prevData,
-          data: { ...prevData.data, [name]: updatedArray }, // Update the state with the modified array
-        };
-      } else {
-        // Handle regular field: just update the value
-        return {
-          ...prevData,
-          data: { ...prevData.data, [name]: value },
-        };
-      }
-    });
-  };
 
   /* App Structure */
   return (
@@ -74,14 +52,10 @@ export default function App() {
           <Card.Body>
             <h2>{data.data.name}</h2>
             <div className="mt-3 mb-3">
-              {" "}
               {/*take this out */}
               <BadgeTags data={data} />
             </div>
-            <AccordianTextFrame
-              textValues={data.data}
-              handleChange={handleChange}
-            />
+            <AccordianTextFrame textValues={data.data} setData={setData} />
           </Card.Body>
         </Card>
       </Container>

@@ -4,7 +4,29 @@ import { FormTextBox } from "./FormTextBoxes";
 import { dataCategories } from "../utils/dataStructures";
 import PropTypes from "prop-types";
 
-export function AccordianTextFrame({ textValues, handleChange }) {
+export function AccordianTextFrame({ textValues, setData }) {
+  const handleChange = (event, index = null) => {
+    const { name, value } = event.target;
+    setData((prevData) => {
+      // Check if the field is an array
+      if (index !== null) {
+        // Handle array: update specific element
+        const updatedArray = [...prevData.data[name]]; // Clone the array to avoid direct state mutation
+        updatedArray[index] = value; // Update the element at the specific index
+        return {
+          ...prevData,
+          data: { ...prevData.data, [name]: updatedArray }, // Update the state with the modified array
+        };
+      } else {
+        // Handle regular field: just update the value
+        return {
+          ...prevData,
+          data: { ...prevData.data, [name]: value },
+        };
+      }
+    });
+  };
+
   return (
     <>
       <Accordion defaultActiveKey={["1"]} alwaysOpen>
@@ -49,5 +71,5 @@ export function AccordianTextFrame({ textValues, handleChange }) {
 
 AccordianTextFrame.propTypes = {
   textValues: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  setData: PropTypes.func.isRequired,
 };

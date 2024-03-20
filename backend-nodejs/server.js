@@ -126,7 +126,7 @@ app.get('/api/data', async (req, res) => {
 
 // Updates and re-encodes the image with received json data
 // Allows the target file to be specified by "filename" query
-app.post('/api/update', upload.single('jsonUpdate'), async (req, res) => {
+app.post('/api/save-data', upload.single('jsonUpdate'), async (req, res) => {
   let filename = "";
   
   try {

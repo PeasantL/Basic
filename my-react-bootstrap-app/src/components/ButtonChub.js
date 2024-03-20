@@ -2,6 +2,7 @@ import React from "react";
 import ButtonBase from "./ButtonBase";
 import PropTypes from "prop-types";
 import { useNodeContext } from "../hooks/useNode";
+import { uploadFile } from "../utils/api";
 
 export default function ButtonChub({ urlString, refreshData, refreshImage }) {
   const { setNode } = useNodeContext();
@@ -10,21 +11,18 @@ export default function ButtonChub({ urlString, refreshData, refreshImage }) {
     try {
       const url = new URL(urlString);
       const fullPath = url.pathname.slice("/characters/".length);
-      const response = await fetch(
-        "https://api.chub.ai/api/characters/download",
-        {
-          method: "POST",
-          headers: {
-            accept: "*/*",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            format: "tavern",
-            fullPath: fullPath,
-            version: "main",
-          }),
+      const response = await fetch(process.env.REACT_APP_CHUB_EXT_API, {
+        method: "POST",
+        headers: {
+          accept: "*/*",
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          format: "tavern",
+          fullPath: fullPath,
+          version: "main",
+        }),
+      });
       const blob = await response.blob(); // Get the response as a blob
 
       await sendFileToAnotherBackend(blob); // Wait for the blob to be sent to another backend
@@ -39,34 +37,11 @@ export default function ButtonChub({ urlString, refreshData, refreshImage }) {
   };
 
   // You also need to adjust sendFileToAnotherBackend to return a promise that resolves once the fetch operation is complete:
-  function sendFileToAnotherBackend(fileBlob) {
-    return new Promise((resolve, reject) => {
-      var formData = new FormData();
-      formData.append("image", fileBlob, "image.png");
-
-      fetch("http://localhost:3001/upload", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error("Network response was not ok.");
-        })
-        .then((data) => {
-          console.log(data); // Handle success response
-          resolve(data); // Resolve the promise with the data
-        })
-        .catch((error) => {
-          console.error(
-            "There was a problem with your fetch operation:",
-            error,
-          );
-          reject(error); // Reject the promise with the error
-        });
-    });
-  }
+  const sendFileToAnotherBackend = async (selectedFile) => {
+    const formData = new FormData();
+    formData.append("image", selectedFile, "image.png");
+    await uploadFile(formData);
+  };
 
   return (
     <div className="d-grid">

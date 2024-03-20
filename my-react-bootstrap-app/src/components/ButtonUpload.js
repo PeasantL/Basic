@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import ButtonBase from "./ButtonBase";
 import PropTypes from "prop-types";
 import { useNodeContext } from "../hooks/useNode";
+import { uploadFile } from "../utils/api";
 
 export default function ButtonUpload({ refreshData, refreshImage }) {
   const fileInputRef = useRef(null);
@@ -17,31 +18,19 @@ export default function ButtonUpload({ refreshData, refreshImage }) {
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      uploadFile(selectedFile); // Upload the file immediately after selection
+      uploadFileImage(selectedFile); // Upload the file immediately after selection
+      if (fileInputRef && fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
 
-  const uploadFile = async (selectedFile) => {
+  // Utility function to upload a file to the backend
+  const uploadFileImage = async (selectedFile) => {
     const formData = new FormData();
-    formData.append("image", selectedFile);
-
-    try {
-      const response = await fetch("http://localhost:3001/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const result = await response.json();
-      console.log("Success:", result);
-      alert("File uploaded successfully!");
-      // Reset the file input for the next upload
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      setNode("file");
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to upload file.");
-    }
+    formData.append("image", selectedFile, "image.png");
+    await uploadFile(formData);
+    setNode("file"); // or any other relevant action post-upload
     refreshData();
     refreshImage();
   };

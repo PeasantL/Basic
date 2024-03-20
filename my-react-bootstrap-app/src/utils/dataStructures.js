@@ -2,13 +2,13 @@
 
 //Todo -> seperate dataFormat
 export const dataFormat = {
-  alternate_greetings: [""],
+  alternate_greetings: [],
   avatar: "",
   character_version: "",
   creator: "",
   creator_notes: "",
   description: "",
-  extensions: "",
+  extensions: [],
   first_mes: "",
   mes_example: "",
   name: "",
@@ -16,7 +16,7 @@ export const dataFormat = {
   post_history_instructions: "",
   scenario: "",
   system_prompt: "",
-  tags: [""],
+  tags: [],
 };
 
 //Tags should be shown as badges -> See chub.ai and bootstrap react badges
