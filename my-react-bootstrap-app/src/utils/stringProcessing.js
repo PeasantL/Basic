@@ -57,19 +57,17 @@ export function processStringBoth(inputString) {
     });
 
     // Convert the array back into a string, handling spacing around newlines
-    let finalString = finalArray
-      .reduce((acc, element, index, array) => {
-        if (/^(\n+)$/.test(element)) {
-          // Element is newline(s), add without space
-          return acc + element;
-        } else {
-          // Element is text, add with space unless the next element is a newline
-          let nextElement = array[index + 1];
-          let addSpace = nextElement && /^(\n+)$/.test(nextElement) ? "" : " ";
-          return acc + element + addSpace;
-        }
-      }, "")
-      .trim(); // Trim the final string to remove any leading/trailing spaces
+    let finalString = finalArray.reduce((acc, element, index, array) => {
+      if (/^(\n+)$/.test(element)) {
+        // Element is newline(s), add without space
+        return acc + element;
+      } else {
+        // Element is text, add with space unless the next element is a newline
+        let nextElement = array[index + 1];
+        let addSpace = nextElement && /^(\n+)$/.test(nextElement) ? "" : " ";
+        return acc + element + addSpace;
+      }
+    }, "");
     return finalString;
   }
 
@@ -127,19 +125,17 @@ export function processStringBoth(inputString) {
     });
 
     // Convert the array back into a string, handling spacing around newlines
-    let finalString = finalArray
-      .reduce((acc, element, index, array) => {
-        if (/^(\n+)$/.test(element)) {
-          // Element is newline(s), add without space
-          return acc + element;
-        } else {
-          // Element is text, add with space unless the next element is a newline
-          let nextElement = array[index + 1];
-          let addSpace = nextElement && /^(\n+)$/.test(nextElement) ? "" : " ";
-          return acc + element + addSpace;
-        }
-      }, "")
-      .trim(); // Trim the final string to remove any leading/trailing spaces
+    let finalString = finalArray.reduce((acc, element, index, array) => {
+      if (/^(\n+)$/.test(element)) {
+        // Element is newline(s), add without space
+        return acc + element;
+      } else {
+        // Element is text, add with space unless the next element is a newline
+        let nextElement = array[index + 1];
+        let addSpace = nextElement && /^(\n+)$/.test(nextElement) ? "" : " ";
+        return acc + element + addSpace;
+      }
+    }, "");
     return finalString;
   }
   // If none of the above, return the string unmodified or apply other logic
@@ -172,7 +168,7 @@ function modifyStringAndTrackPositions(inputString) {
     let match;
     while ((match = patternRegex.exec(line)) !== null) {
       // Tracking the pattern and its line position
-      trackedPatterns.push({ pattern: match[0], line: index + 1 }); // Adding 1 to make line positions 1-based
+      trackedPatterns.push({ pattern: match[0], line: index });
       // Remove the pattern from the line
       line = line.replace(match[0], "");
     }
@@ -192,15 +188,25 @@ function modifyStringAndTrackPositions(inputString) {
 //post-processing of mes_examples to re-insert <START> and {+/w} structures
 function reinsertStructures(modifiedString, trackedPatterns) {
   // Splitting the modified string into lines
+
   let lines = modifiedString.split("\n");
+
+  /*
+  console.log("ModifiedString");
+  console.log(modifiedString);
+  console.log("Tracked Patterns <START>");
+  console.log(trackedPatterns);
+  console.log("Lines");
+  console.log(lines);
+  */
 
   // Reinsert the patterns at their original positions
   trackedPatterns.forEach(({ pattern, line }) => {
     // Check if the line exists, otherwise, add empty lines
-    if (line - 1 < lines.length) {
-      lines[line - 1] = pattern + lines[line - 1];
+    if (line < lines.length) {
+      lines[line] = pattern + lines[line];
     } else {
-      while (lines.length < line - 1) {
+      while (lines.length < line) {
         lines.push("");
       }
       lines.push(pattern);
