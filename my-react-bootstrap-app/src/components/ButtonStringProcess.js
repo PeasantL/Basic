@@ -15,7 +15,7 @@ export default function ButtonStringProcess({ setData }) {
 
   const processFields = (processingFunction) => {
     setData((prevData) => {
-      processData(processingFunction, prevData);
+      return processData(processingFunction, prevData);
     });
   };
 
@@ -71,7 +71,7 @@ export default function ButtonStringProcess({ setData }) {
             );
           }
         } else {
-          processFields(processStringQuotes);
+          processFields(processingFunction);
         }
       })
       .catch((error) => {
