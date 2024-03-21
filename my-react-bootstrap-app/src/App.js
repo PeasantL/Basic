@@ -32,7 +32,12 @@ export default function App() {
           </Col>
           <Col>
             <Row>
-              <PanelFileContent setData={setData} />
+              <PanelFileContent
+                data={data}
+                setData={setData}
+                refreshData={refreshData}
+                refreshImage={refreshImage}
+              />
             </Row>
             <Row>
               <PanelCloud

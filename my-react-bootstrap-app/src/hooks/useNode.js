@@ -23,7 +23,7 @@ const useNode = (initialState = "none") => {
   return [node, setNode];
 };
 
-// finds out what state the uplaods folder on the server is in
+// finds out what state the uploads folder on the server is in
 // "none" - no files on server
 // "file" - single file on server[1]
 // "folder" - multiple files on server [1](or single file in a folder)
