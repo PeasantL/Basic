@@ -8,14 +8,18 @@ import ButtonUploadFolder from "./ButtonUploadFolder";
 import { useNodeContext } from "../hooks/useNode";
 import PropTypes from "prop-types";
 
-export default function PanelFileState({ data, refreshData, refreshImage }) {
+export default function PanelFileState({
+  jsonCard,
+  refreshJsonCard,
+  refreshImage,
+}) {
   // Wrapped function to handle deletion with UI feedback (e.g., reloading)
   const { node, setNode } = useNodeContext();
 
   const deleteUploads = async () => {
     try {
       await deleteUploadsAPI();
-      refreshData();
+      refreshJsonCard();
       refreshImage();
       alert("Folder deleted successfully");
       setNode("none");
@@ -26,7 +30,7 @@ export default function PanelFileState({ data, refreshData, refreshImage }) {
 
   // Wrapped function for handleSave to use in the UI
   const handleSave = () => {
-    saveData(data)
+    saveData(jsonCard)
       .then((serverData) => console.log(serverData))
       .catch((error) => console.error("Error:", error));
   };
@@ -36,7 +40,10 @@ export default function PanelFileState({ data, refreshData, refreshImage }) {
       <Card.Header>File State</Card.Header>
       <Card.Body>
         <div className="custom-grid">
-          <ButtonUpload refreshData={refreshData} refreshImage={refreshImage} />
+          <ButtonUpload
+            refreshJsonCard={refreshJsonCard}
+            refreshImage={refreshImage}
+          />
 
           <ButtonBase text="Purge Upload" onClick={deleteUploads} />
           <ButtonBase
@@ -50,7 +57,7 @@ export default function PanelFileState({ data, refreshData, refreshImage }) {
       <Card.Body>
         <div className="custom-grid">
           <ButtonUploadFolder
-            refreshData={refreshData}
+            refreshJsonCard={refreshJsonCard}
             refreshImage={refreshImage}
           />
           <ButtonBase
@@ -64,7 +71,7 @@ export default function PanelFileState({ data, refreshData, refreshImage }) {
 }
 
 PanelFileState.propTypes = {
-  data: PropTypes.object.isRequired,
-  refreshData: PropTypes.func.isRequired,
+  jsonCard: PropTypes.object.isRequired,
+  refreshJsonCard: PropTypes.func.isRequired,
   refreshImage: PropTypes.func.isRequired,
 };

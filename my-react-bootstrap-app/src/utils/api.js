@@ -17,7 +17,7 @@ export const fetchData = async (filename) => {
 };
 
 // Function to save data
-export const saveData = async (data, filename) => {
+export const saveData = async (jsonCard, filename) => {
   let url = process.env.REACT_APP_JSON_DATA_SAVE_API;
   // given a filename is specified, send query parameter to the backend
   if (filename) {
@@ -30,7 +30,7 @@ export const saveData = async (data, filename) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({ data: jsonCard }),
     });
   } catch (error) {
     console.error("Error:", error);
