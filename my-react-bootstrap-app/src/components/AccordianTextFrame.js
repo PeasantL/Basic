@@ -4,7 +4,7 @@ import { FormTextBox } from "./FormTextBoxes";
 import { dataCategories } from "../utils/dataStructures";
 import PropTypes from "prop-types";
 
-export function AccordianTextFrame({ textValues, setData }) {
+export function AccordianTextFrame({ data, setData }) {
   const handleChange = (event, index = null) => {
     const { name, value } = event.target;
     setData((prevData) => {
@@ -34,7 +34,7 @@ export function AccordianTextFrame({ textValues, setData }) {
           <Accordion.Header>Self-Adjusting Settings</Accordion.Header>
           <Accordion.Body>
             <FormTextBox
-              textValues={textValues}
+              textValues={data.data}
               handleChange={handleChange}
               includedKeys={dataCategories.defaultSetting}
             />
@@ -46,7 +46,7 @@ export function AccordianTextFrame({ textValues, setData }) {
           <Accordion.Header>Unchanged Settings</Accordion.Header>
           <Accordion.Body>
             <FormTextBox
-              textValues={textValues}
+              textValues={data.data}
               handleChange={handleChange}
               includedKeys={dataCategories.addSetting}
             />
@@ -58,7 +58,7 @@ export function AccordianTextFrame({ textValues, setData }) {
           <Accordion.Header>Auxillary Settings</Accordion.Header>
           <Accordion.Body>
             <FormTextBox
-              textValues={textValues}
+              textValues={data.data}
               handleChange={handleChange}
               includedKeys={dataCategories.miscSettings}
             />
@@ -70,6 +70,6 @@ export function AccordianTextFrame({ textValues, setData }) {
 }
 
 AccordianTextFrame.propTypes = {
-  textValues: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   setData: PropTypes.func.isRequired,
 };

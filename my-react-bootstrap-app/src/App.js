@@ -60,7 +60,7 @@ export default function App() {
               {/*take this out */}
               <BadgeTags data={data} />
             </div>
-            <AccordianTextFrame textValues={data.data} setData={setData} />
+            <AccordianTextFrame data={data} setData={setData} />
           </Card.Body>
         </Card>
       </Container>
