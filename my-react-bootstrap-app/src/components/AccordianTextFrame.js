@@ -4,24 +4,24 @@ import { FormTextBox } from "./FormTextBoxes";
 import { dataCategories } from "../utils/dataStructures";
 import PropTypes from "prop-types";
 
-export function AccordianTextFrame({ data, setData }) {
+export function AccordianTextFrame({ jsonCard, setJsonCard }) {
   const handleChange = (event, index = null) => {
     const { name, value } = event.target;
-    setData((prevData) => {
+    setJsonCard((prevJsonCard) => {
       // Check if the field is an array
       if (index !== null) {
         // Handle array: update specific element
-        const updatedArray = [...prevData.data[name]]; // Clone the array to avoid direct state mutation
+        const updatedArray = [...prevJsonCard.data[name]]; // Clone the array to avoid direct state mutation
         updatedArray[index] = value; // Update the element at the specific index
         return {
-          ...prevData,
-          data: { ...prevData.data, [name]: updatedArray }, // Update the state with the modified array
+          ...prevJsonCard,
+          data: { ...prevJsonCard.data, [name]: updatedArray }, // Update the state with the modified array
         };
       } else {
         // Handle regular field: just update the value
         return {
-          ...prevData,
-          data: { ...prevData.data, [name]: value },
+          ...prevJsonCard,
+          data: { ...prevJsonCard.data, [name]: value },
         };
       }
     });
@@ -34,7 +34,7 @@ export function AccordianTextFrame({ data, setData }) {
           <Accordion.Header>Self-Adjusting Settings</Accordion.Header>
           <Accordion.Body>
             <FormTextBox
-              textValues={data.data}
+              textValues={jsonCard.data}
               handleChange={handleChange}
               includedKeys={dataCategories.defaultSetting}
             />
@@ -46,7 +46,7 @@ export function AccordianTextFrame({ data, setData }) {
           <Accordion.Header>Unchanged Settings</Accordion.Header>
           <Accordion.Body>
             <FormTextBox
-              textValues={data.data}
+              textValues={jsonCard.data}
               handleChange={handleChange}
               includedKeys={dataCategories.addSetting}
             />
@@ -58,7 +58,7 @@ export function AccordianTextFrame({ data, setData }) {
           <Accordion.Header>Auxillary Settings</Accordion.Header>
           <Accordion.Body>
             <FormTextBox
-              textValues={data.data}
+              textValues={jsonCard.data}
               handleChange={handleChange}
               includedKeys={dataCategories.miscSettings}
             />
@@ -70,6 +70,6 @@ export function AccordianTextFrame({ data, setData }) {
 }
 
 AccordianTextFrame.propTypes = {
-  data: PropTypes.object.isRequired,
-  setData: PropTypes.func.isRequired,
+  jsonCard: PropTypes.object.isRequired,
+  setJsonCard: PropTypes.func.isRequired,
 };

@@ -5,7 +5,11 @@ import { useNodeContext } from "../hooks/useNode";
 import { uploadFile } from "../utils/api";
 import { saveData } from "../utils/api";
 
-export default function ButtonChangeImage({ data, refreshData, refreshImage }) {
+export default function ButtonChangeImage({
+  jsonCard,
+  refreshJsonCard,
+  refreshImage,
+}) {
   const fileInputRef = useRef(null);
 
   const { node } = useNodeContext();
@@ -31,8 +35,8 @@ export default function ButtonChangeImage({ data, refreshData, refreshImage }) {
     const formData = new FormData();
     formData.append("image", selectedFile);
     await uploadFile(formData);
-    await saveData(data);
-    refreshData();
+    await saveData(jsonCard);
+    refreshJsonCard();
     refreshImage();
   };
 
@@ -54,7 +58,7 @@ export default function ButtonChangeImage({ data, refreshData, refreshImage }) {
 }
 
 ButtonChangeImage.propTypes = {
-  data: PropTypes.object.isRequired,
-  refreshData: PropTypes.func.isRequired,
+  jsonCard: PropTypes.object.isRequired,
+  refreshJsonCard: PropTypes.func.isRequired,
   refreshImage: PropTypes.func.isRequired,
 };

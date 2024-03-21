@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useNodeContext } from "../hooks/useNode";
 import { uploadFile } from "../utils/api";
 
-export default function ButtonUpload({ refreshData, refreshImage }) {
+export default function ButtonUpload({ refreshJsonCard, refreshImage }) {
   const fileInputRef = useRef(null);
 
   const { setNode } = useNodeContext();
@@ -31,7 +31,7 @@ export default function ButtonUpload({ refreshData, refreshImage }) {
     formData.append("image", selectedFile, "image.png");
     await uploadFile(formData);
     setNode("file"); // or any other relevant action post-upload
-    refreshData();
+    refreshJsonCard();
     refreshImage();
   };
 
@@ -49,6 +49,6 @@ export default function ButtonUpload({ refreshData, refreshImage }) {
 }
 
 ButtonUpload.propTypes = {
-  refreshData: PropTypes.func.isRequired,
+  refreshJsonCard: PropTypes.func.isRequired,
   refreshImage: PropTypes.func.isRequired,
 };

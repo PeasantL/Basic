@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import { useNodeContext } from "../hooks/useNode";
 import { uploadFile } from "../utils/api";
 
-export default function ButtonChub({ urlString, refreshData, refreshImage }) {
+export default function ButtonChub({
+  urlString,
+  refreshJsonCard,
+  refreshImage,
+}) {
   const { setNode } = useNodeContext();
 
   const chubRetrieve = async () => {
@@ -28,7 +32,7 @@ export default function ButtonChub({ urlString, refreshData, refreshImage }) {
       await sendFileToAnotherBackend(blob); // Wait for the blob to be sent to another backend
 
       setNode("file");
-      refreshData();
+      refreshJsonCard();
       refreshImage();
     } catch (error) {
       console.error("Error:", error);
@@ -52,6 +56,6 @@ export default function ButtonChub({ urlString, refreshData, refreshImage }) {
 
 ButtonChub.propTypes = {
   urlString: PropTypes.string.isRequired,
-  refreshData: PropTypes.func.isRequired,
+  refreshJsonCard: PropTypes.func.isRequired,
   refreshImage: PropTypes.func.isRequired,
 };

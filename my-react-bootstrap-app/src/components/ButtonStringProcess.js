@@ -10,18 +10,18 @@ import { useNodeContext } from "../hooks/useNode";
 import { fetchData, fetchFileList, saveData } from "../utils/api";
 import PropTypes from "prop-types";
 
-export default function ButtonStringProcess({ setData }) {
+export default function ButtonStringProcess({ setJsonCard }) {
   const { node } = useNodeContext();
 
   const processFields = (processingFunction) => {
-    setData((prevData) => {
-      return processData(processingFunction, prevData);
+    setJsonCard((prevJsonCard) => {
+      return processJsonCard(processingFunction, prevJsonCard);
     });
   };
 
-  const processData = (processingFunction, prevData) => {
+  const processJsonCard = (processingFunction, prevJsonCard) => {
     // Destructuring to extract the array and any other fields you wish to process
-    const { first_mes, mes_example, alternate_greetings } = prevData.data;
+    const { first_mes, mes_example, alternate_greetings } = prevJsonCard.data;
 
     // Apply processingFunction to first_mes and mes_example directly
     const processedFirstMes = processingFunction(first_mes);
@@ -36,9 +36,9 @@ export default function ButtonStringProcess({ setData }) {
     );
 
     return {
-      ...prevData,
+      ...prevJsonCard,
       data: {
-        ...prevData.data,
+        ...prevJsonCard.data,
         first_mes: processedFirstMes,
         mes_example: processedMesExample,
         alternate_greetings: processedAlternateGreetings,
@@ -65,7 +65,7 @@ export default function ButtonStringProcess({ setData }) {
             console.log(`saving: ${fileList.files[i]}`);
             fetchData(fileList.files[i]).then((data) =>
               saveData(
-                processData(processingFunction, data),
+                processJsonCard(processingFunction, data),
                 fileList.files[i],
               ),
             );
@@ -101,5 +101,5 @@ export default function ButtonStringProcess({ setData }) {
 }
 
 ButtonStringProcess.propTypes = {
-  setData: PropTypes.func.isRequired,
+  setJsonCard: PropTypes.func.isRequired,
 };
