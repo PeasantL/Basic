@@ -5,7 +5,7 @@ import ButtonChub from "./ButtonChub";
 import "./PanelFile.component.css";
 import PropTypes from "prop-types";
 
-export default function PanelCloud({ refreshData, refreshImage }) {
+export default function PanelCloud({ refreshJsonCard, refreshImage }) {
   const [urlString, setUrlString] = useState("");
 
   const handleChange = (event) => {
@@ -25,7 +25,7 @@ export default function PanelCloud({ refreshData, refreshImage }) {
         <div className="custom-grid mt-4">
           <ButtonChub
             urlString={urlString}
-            refreshData={refreshData}
+            refreshJsonCard={refreshJsonCard}
             refreshImage={refreshImage}
           />
         </div>
@@ -35,6 +35,6 @@ export default function PanelCloud({ refreshData, refreshImage }) {
 }
 
 PanelCloud.propTypes = {
-  refreshData: PropTypes.func.isRequired,
+  refreshJsonCard: PropTypes.func.isRequired,
   refreshImage: PropTypes.func.isRequired,
 };

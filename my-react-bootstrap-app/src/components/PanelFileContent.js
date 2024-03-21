@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 import ButtonChangeImage from "./ButtonChangeImage";
 
 export default function PanelFileContent({
-  data,
-  setData,
-  refreshData,
+  jsonCard,
+  setJsonCard,
+  refreshJsonCard,
   refreshImage,
 }) {
   return (
@@ -16,10 +16,10 @@ export default function PanelFileContent({
       <Card.Header>File Content</Card.Header>
       <Card.Body>
         <div className="custom-grid">
-          <ButtonStringProcess setData={setData} />
+          <ButtonStringProcess setJsonCard={setJsonCard} />
           <ButtonChangeImage
-            data={data}
-            refreshData={refreshData}
+            jsonCard={jsonCard}
+            refreshJsonCard={refreshJsonCard}
             refreshImage={refreshImage}
           />
         </div>
@@ -29,8 +29,8 @@ export default function PanelFileContent({
 }
 
 PanelFileContent.propTypes = {
-  data: PropTypes.object.isRequired,
-  setData: PropTypes.func.isRequired,
-  refreshData: PropTypes.func.isRequired,
+  jsonCard: PropTypes.object.isRequired,
+  setJsonCard: PropTypes.func.isRequired,
+  refreshJsonCard: PropTypes.func.isRequired,
   refreshImage: PropTypes.func.isRequired,
 };

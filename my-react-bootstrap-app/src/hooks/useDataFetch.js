@@ -3,26 +3,26 @@ import { fetchData } from "../utils/api"; // Adjust the path as necessary
 import { dataFormat } from "../utils/dataStructures";
 
 const useDataFetch = () => {
-  const [data, setData] = useState({
+  const [jsonCard, setJsonCard] = useState({
     data: dataFormat,
   });
 
-  const refreshData = async () => {
+  const refreshJsonCard = async () => {
     try {
       const newData = await fetchData();
       console.log(newData);
-      setData(newData);
+      setJsonCard(newData);
     } catch (error) {
       console.error("Failed to fetch data:", error);
-      setData({ data: dataFormat });
+      setJsonCard({ data: dataFormat });
     }
   };
 
   useEffect(() => {
-    refreshData(); // Initial fetch
+    refreshJsonCard(); // Initial fetch
   }, []);
 
-  return [data, setData, refreshData]; // Return refreshData as part of the hook's output
+  return [jsonCard, setJsonCard, refreshJsonCard]; // Return refreshData as part of the hook's output
 };
 
 export default useDataFetch;

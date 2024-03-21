@@ -12,7 +12,7 @@ import "./App.component.css";
 
 //data should be renamed so that there is not structure like data.data
 export default function App() {
-  const [data, setData, refreshData] = useDataFetch();
+  const [jsonCard, setJsonCard, refreshJsonCard] = useDataFetch();
   const [imageUrl, refreshImage] = useImageRefresher(
     process.env.REACT_APP_IMAGE_API_URL,
   );
@@ -25,23 +25,23 @@ export default function App() {
         <Row>
           <Col>
             <PanelFileState
-              data={data}
-              refreshData={refreshData}
+              jsonCard={jsonCard}
+              refreshJsonCard={refreshJsonCard}
               refreshImage={refreshImage}
             />
           </Col>
           <Col>
             <Row>
               <PanelFileContent
-                data={data}
-                setData={setData}
-                refreshData={refreshData}
+                jsonCard={jsonCard}
+                setJsonCard={setJsonCard}
+                refreshJsonCard={refreshJsonCard}
                 refreshImage={refreshImage}
               />
             </Row>
             <Row>
               <PanelCloud
-                refreshData={refreshData}
+                refreshJsonCard={refreshJsonCard}
                 refreshImage={refreshImage}
               />
             </Row>
@@ -55,12 +55,12 @@ export default function App() {
       <Container>
         <Card className="custom-glassy">
           <Card.Body>
-            <h2>{data.data.name}</h2>
+            <h2>{jsonCard.data.name}</h2>
             <div className="mt-3 mb-3">
               {/*take this out */}
-              <BadgeTags data={data} />
+              <BadgeTags jsonCard={jsonCard} />
             </div>
-            <AccordianTextFrame data={data} setData={setData} />
+            <AccordianTextFrame jsonCard={jsonCard} setJsonCard={setJsonCard} />
           </Card.Body>
         </Card>
       </Container>
@@ -69,7 +69,7 @@ export default function App() {
         <Card className="custom-glassy">
           <Card.Body>
             <h3>Raw String Check</h3>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            <pre>{JSON.stringify(jsonCard, null, 2)}</pre>
           </Card.Body>
         </Card>
       </Container>

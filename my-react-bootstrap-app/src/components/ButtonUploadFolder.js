@@ -3,7 +3,7 @@ import ButtonBase from "./ButtonBase";
 import PropTypes from "prop-types";
 import { useNodeContext } from "../hooks/useNode";
 
-export default function ButtonUploadFolder({ refreshData, refreshImage }) {
+export default function ButtonUploadFolder({ refreshJsonCard, refreshImage }) {
   const fileInputRef = useRef(null);
 
   const { setNode } = useNodeContext();
@@ -36,7 +36,7 @@ export default function ButtonUploadFolder({ refreshData, refreshImage }) {
       alert("Failed to upload folder.");
     }
 
-    refreshData();
+    refreshJsonCard();
     refreshImage();
   };
 
@@ -71,6 +71,6 @@ export default function ButtonUploadFolder({ refreshData, refreshImage }) {
 }
 
 ButtonUploadFolder.propTypes = {
-  refreshData: PropTypes.func.isRequired,
+  refreshJsonCard: PropTypes.func.isRequired,
   refreshImage: PropTypes.func.isRequired,
 };
