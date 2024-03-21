@@ -1,7 +1,7 @@
 import { Accordion } from "react-bootstrap";
 import { React } from "react";
 import { FormTextBox } from "./FormTextBoxes";
-import { dataCategories } from "../utils/dataStructures";
+import { jsonCardCategories } from "../utils/dataStructures";
 import PropTypes from "prop-types";
 
 export function AccordianTextFrame({ jsonCard, setJsonCard }) {
@@ -36,7 +36,7 @@ export function AccordianTextFrame({ jsonCard, setJsonCard }) {
             <FormTextBox
               textValues={jsonCard.data}
               handleChange={handleChange}
-              includedKeys={dataCategories.defaultSetting}
+              includedKeys={jsonCardCategories.defaultSetting}
             />
           </Accordion.Body>
         </Accordion.Item>
@@ -48,7 +48,7 @@ export function AccordianTextFrame({ jsonCard, setJsonCard }) {
             <FormTextBox
               textValues={jsonCard.data}
               handleChange={handleChange}
-              includedKeys={dataCategories.addSetting}
+              includedKeys={jsonCardCategories.addSetting}
             />
           </Accordion.Body>
         </Accordion.Item>
@@ -60,7 +60,7 @@ export function AccordianTextFrame({ jsonCard, setJsonCard }) {
             <FormTextBox
               textValues={jsonCard.data}
               handleChange={handleChange}
-              includedKeys={dataCategories.miscSettings}
+              includedKeys={jsonCardCategories.miscSettings}
             />
           </Accordion.Body>
         </Accordion.Item>

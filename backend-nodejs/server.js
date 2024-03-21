@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
+const archiver = require('archiver');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
@@ -165,5 +166,27 @@ function getImageFilename(req) {
 
   return filename;
 }
+
+app.get('/download-folder', (req, res) => {
+  const filePath = path.join(__dirname, 'uploads')
+  const folderPath = filePath; // Update this to your folder's path
+  res.writeHead(200, {
+    'Content-Type': 'application/zip',
+    'Content-Disposition': 'attachment; filename=folder.zip',
+  });
+
+  const archive = archiver('zip', {
+    zlib: { level: 9 }, // Compression level
+  });
+
+  archive.on('error', (err) => {
+    throw err;
+  });
+
+  archive.pipe(res);
+  archive.directory(folderPath, false);
+  archive.finalize();
+});
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

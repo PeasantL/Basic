@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "../utils/api"; // Adjust the path as necessary
-import { dataFormat } from "../utils/dataStructures";
+import { jsonCardFormat } from "../utils/dataStructures";
 
 const useDataFetch = () => {
   const [jsonCard, setJsonCard] = useState({
-    data: dataFormat,
+    data: jsonCardFormat,
   });
 
   const refreshJsonCard = async () => {
     try {
-      const newData = await fetchData();
-      console.log(newData);
-      setJsonCard(newData);
+      const newJsonCard = await fetchData();
+      console.log(newJsonCard);
+      setJsonCard(newJsonCard);
     } catch (error) {
       console.error("Failed to fetch data:", error);
-      setJsonCard({ data: dataFormat });
+      setJsonCard({ data: jsonCardFormat });
     }
   };
 

@@ -35,6 +35,11 @@ export default function PanelFileState({
       .catch((error) => console.error("Error:", error));
   };
 
+  function downloadFolder() {
+    // Adjust the URL as needed based on your server configuration
+    window.location.href = process.env.REACT_APP_DOWNLOAD_FOLDER_API;
+  }
+
   return (
     <Card className="custom-glassy">
       <Card.Header>File State</Card.Header>
@@ -62,6 +67,7 @@ export default function PanelFileState({
           />
           <ButtonBase
             text="Download Folder"
+            onClick={downloadFolder}
             disabled={node === "none" || node === "file"}
           />
         </div>
