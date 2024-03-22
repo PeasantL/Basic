@@ -17,6 +17,17 @@ if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads");
 }
 
+// Serve static files from the React app build directory
+app.use(express.static(path.join(__dirname, "/build")));
+
+// The "catchall" handler: for any request that doesn't
+// match the ones above, send back the frontend's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + "/build"));
+});
+
+
+
 // Variable for tracking the current image
 // Set as relative to "uploads" to (potentially) reduce chance a bug allows IO outside the folder
 var image = ''
