@@ -1,6 +1,6 @@
 react-source/node_modules
 react-source/package-lock.json
-card-format/node_modules
-card-format/package-lock.json
-card-format/uploads
+main/node_modules
+main/package-lock.json
+main/uploads
 .vscode
