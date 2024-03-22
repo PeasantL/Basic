@@ -1,6 +1,6 @@
-my-react-bootstrap-app/node_modules
-my-react-bootstrap-app/package-lock.json
-backend-nodejs/node_modules
-backend-nodejs/package-lock.json
-backend-nodejs/uploads
+react-source/node_modules
+react-source/package-lock.json
+card-format/node_modules
+card-format/package-lock.json
+card-format/uploads
 .vscode
