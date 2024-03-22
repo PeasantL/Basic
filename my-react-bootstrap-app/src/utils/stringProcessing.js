@@ -2,7 +2,7 @@ export function processStringBoth(inputString) {
   // Check for the presence of both asterisks and quotes
   if (inputString.includes("*") && inputString.includes('"')) {
     // Do nothing, string is correct
-    console.log("File is correct, no processing done.");
+    //console.log("File is correct, no processing done.");
     let finalString = inputString;
     return finalString;
   }
@@ -140,7 +140,7 @@ export function processStringBoth(inputString) {
   }
   // If none of the above, return the string unmodified or apply other logic
   else {
-    console.log("Bad file - No processing done due to lack of special chars");
+    //console.log("Bad file - No processing done due to lack of special chars");
     let finalString = inputString;
     return finalString;
   }

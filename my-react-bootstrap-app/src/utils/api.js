@@ -24,6 +24,8 @@ export const saveData = async (jsonCard, filename) => {
     url += `?filename=${filename}`;
   }
 
+  console.log("Saving " + filename);
+
   try {
     await fetch(url, {
       method: "POST",

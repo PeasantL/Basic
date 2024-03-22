@@ -31,9 +31,18 @@ export default function ButtonStringProcess({ setJsonCard }) {
     );
 
     // Apply processingFunction to each element in alternate_greeting if it exists
-    const processedAlternateGreetings = alternate_greetings.map((item) =>
-      processingFunction(item),
-    );
+
+    let processedAlternateGreetings = [];
+
+    if (typeof alternate_greetings === Array) {
+      processedAlternateGreetings = alternate_greetings.map((item) =>
+        processingFunction(item),
+      );
+    } else {
+      console.log(
+        "Error, card not properly formatted : " + prevJsonCard.data.name,
+      );
+    }
 
     return {
       ...prevJsonCard,
